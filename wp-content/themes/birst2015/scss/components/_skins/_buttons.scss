@@ -1,0 +1,153 @@
+// define component placeholders for component skin (no selector here)
+@include define('button_skin') {
+  %button-skin-default {
+    display: inline-block; 
+    cursor: pointer;
+    line-height: 1rem;
+		font-family: $medium-font; 
+		text-transform: uppercase;
+    @include transition(background-color 0.3s ease-in-out, color 0.3s ease-in-out); 
+    @include border-radius(3px);
+  }
+
+  %button-skin-default-padding {
+    padding: 1.4em 2.6em;
+  }
+
+  %buttonAltState-skin-default {
+    @extend %bg-color--cgray;
+    @extend %color--cwhite;
+  }
+
+  %button-small {
+    @include font-size(18px, 18px);
+    &:after {
+      margin-top: -4.5px;
+    }
+  }
+	%button-medium {
+		@include font-size(14px, 14px);
+		padding: 0.9em 1.3em;
+	}
+
+  %button-skin-outlined {
+		border: 1px solid map-get($map-colors, cwhite);
+    @extend %button-skin-default;
+    @extend %button-skin-default-padding;
+		@extend %color--cwhite;
+  }
+	
+	%button-skin-orange {
+		@extend %button-skin-default;
+		@extend %button-skin-default-padding;
+    @extend %bg-color--corange;
+		@extend %color--cwhite;
+  }
+	
+  %buttonAltState-skin-outlined {
+    @extend %color--cgray;
+		@extend %bg-color--clightgray;
+  }
+	
+	%buttonAltState-skin-orange {
+    @extend %color--cwhite;
+		background-color: map-get($map-colors, corangeover);
+  }
+
+
+
+}
+
+// provide a default skin for the component
+// only visual changes that don't affect the component layout should be in here
+@mixin button-skin-default($selector: '.button', $hover: ':hover', $size: '', $icon: '') {
+  #{$selector} {
+    @extend %button-skin-default;
+    @extend %button-skin-default-padding;
+  }
+  #{$selector}[href="tbd"] {
+    @extend %button-skin-default-padding;
+  }
+
+  @if $hover == ':hover' {
+    #{$selector}:hover {
+      @extend %buttonAltState-skin-default;
+    }
+  } @else {
+    #{$selector}_#{$hover} {
+      @extend %buttonAltState-skin-default;
+    }
+  }
+	
+  #{$selector}:active {
+		@extend %buttonAltState-skin-default;
+	}
+	
+}
+
+@mixin button-skin-outlined($selector: '.button-outlined', $hover: ':hover', $size: '', $icon: '') {
+  #{$selector} {
+    @extend %button-skin-outlined;
+  }
+  #{$selector}[href="tbd"] {
+    @extend %button-skin-default-padding;
+  }
+
+  @if $hover == ':hover' {
+    #{$selector}:hover {
+      @extend %buttonAltState-skin-outlined;
+    }
+  } @else {
+    #{$selector}_#{$hover} {
+      @extend %buttonAltState-skin-outlined;
+    }
+  }
+	
+	#{$selector}:active {
+  	@extend %buttonAltState-skin-outlined;
+  }
+	
+}
+
+@mixin button-skin-orange($selector: '.button-orange', $hover: ':hover', $size: '', $icon: '') {
+  #{$selector} {
+    @extend %button-skin-orange;
+  }
+  #{$selector}[href="tbd"] {
+    @extend %button-skin-default-padding;
+  }
+
+  @if $hover == ':hover' {
+    #{$selector}:hover {
+      @extend %buttonAltState-skin-orange;
+    }
+  } @else {
+    #{$selector}_#{$hover} {
+      @extend %buttonAltState-skin-orange;
+    }
+  }
+		
+}
+
+@mixin button-medium($selector: '.button-medium', $hover: ':hover', $size: '', $icon: '') {
+	#{$selector} {
+    @extend %button-medium;
+  }
+}
+
+.button-white {
+	background-color: #fff;
+}
+
+.button, .button-orange {
+	&:focus {
+		color: #fff !important;
+	}
+}
+
+.button-skinny {
+    @include font-size(16px, 16px);
+		padding: 0.9em 2.6em;
+    margin: 0 10px;
+	}
+

@@ -1,0 +1,184 @@
+/* _____ VARIABLES _____ */
+
+// Colors
+// ==========================================================================
+// List Generated Placeholder Colors
+// ==========================================================================
+//
+// ----------------------------- INTEDED USAGE ------------------------------
+//
+// The intended useage for $colors and $color-values list below are to
+// easily generate placeholders and classes for the color properties.
+// This will reduce the need for generating new variables for each color
+// used in the project
+//
+// Additionaly this removes name dependency such as client names existing
+// within our name structures.
+//
+// example: the placeholders can be referenced by using the call
+//		@extned %color-red; or @extend %color-orange
+//
+// Because both 'red' and 'orange' are values of the $map-colors map, the
+// loop creates those placeholders automagically by using the list value
+// and concatenating 'color-' to the beginning of the value
+//
+
+// Add, Remove, Modify this map
+// to change the available color options in the SASS setup
+
+$map-colors: (
+	cred: #ff0000,
+	corange: #ff5800,
+	corange2: #ca4b07,
+	corangeover: #ff7d38,
+	cyellow: #ffff00,
+	cgreen: #00ff00,
+	cblue: #408eaa,
+	cblue2: #5c8fab,
+	cblueover: #4bd0d4,
+	cviolet: #551a8b,
+	cblack: #000,
+	cwhite: #fff,
+	cgray: #8f9194,
+	cdarkgray: #414246,
+	cdarkgray2: #363333,
+	cdarkgray3: #545454,
+	cmediumgray: #666666,
+	cmediumgray2: #616365,
+	cmediumgray3: #8e9294,
+	cmediumgray3over: #bdb9bd,
+	cmediumgray4: #c7c8c9,
+	cmediumgray5: #cacccd,
+	cmediumgray6: #595959,
+	cmediumgray7: #c3c4c2,
+	cimgbordergray: #e8e8e8,
+	clightgray: #bcbdbf,
+	clightgray2: #e5eaed,
+	clightgray3: #eef1f4,
+	clightgray4: #bcbec1,
+	clightgray5: #eff2f4, 
+	clightgray6: #dbe3eb,
+	clightgray7: #dce1e6,
+	clightgray8: #aeaeae,
+	clightgray9: #f7f7f7,
+	clightgray10: #727579,
+	ctabledg1: #adadad,
+	ctabledg2: #6b6b6b,
+	ctablemg: #f4f4f4,
+	ctablebg: #fafafa,
+	cbrown: #221e1e,
+	cbrown2: #262426,
+	cbrown3: #9a9898,
+);
+
+@each $color, $map-color in $map-colors {
+
+  // Create placefolder for color
+  %color--#{$color} {
+    color: $map-color;
+  }
+
+  .color--#{$color} {
+    color: $map-color;
+  }
+
+  %bg-color--#{$color} {
+    background-color: $map-color;
+  }
+
+  .bg-color--#{$color} {
+    background-color: $map-color;
+  }
+}
+
+// ==========================================================================
+// Constants Placeholder Colors
+// ==========================================================================
+//
+// ----------------------------- INTEDED USAGE ------------------------------
+//
+// Intended useage here is similar to List Generated Placeholder Colors.
+// However the difference is that the key names for $const-colors should NEVER
+// change under any circumstances, on the associated values. They are to remain static for easy reuse with
+// standard HTML tags
+
+// ==========================================================================
+// DO NOT MODIFY ANY KEY NAMES IN $const-colors
+// ==========================================================================
+//
+
+$const-colors: (
+	body: map-get($map-colors, cmediumgray2),
+	h1: map-get($map-colors, cmediumgray2),
+	h2: map-get($map-colors, cmediumgray2),
+	h3: map-get($map-colors, cmediumgray2),
+	h4: map-get($map-colors, cmediumgray2),
+	h5: map-get($map-colors, cmediumgray2),
+	h6: map-get($map-colors, cmediumgray2),
+	h7: map-get($map-colors, cmediumgray2),
+	a: map-get($map-colors , cblue),
+	a-hover: map-get($map-colors , corange)
+);
+
+@each $const, $const-color in $const-colors {
+
+	// Create placefolder for color constant
+	%const-color-#{$const} {
+		color: #{$const-color};
+	}
+
+}
+
+
+// ==========================================================================
+// FONT SIZES | Generates placeholders and classes for font sizes in list $font-sizes-values
+// ==========================================================================
+
+$font-sizes: ten, eleven, twelve, thirteen, fourteen, fifteen, sixteen, seventeen, eightteen, nineteen, twenty, twentyone, twentytwo, twentythree, twentyfour, twentyfive, twentysix, twentyseven, twentyeight, twentynine, thirty, thirtyone, thirtytwo, thirtythree, thirtyfour, thirtyfive, thirtysix, thirtyseven, thirtyeight, thirtynine, fourty, fourtyone, fourtytwo, fourtythree, fourtyfour, fourtyfive, fourtysix, fourtyseven, fourtyeight, fourtynine, fifty, fiftyone, fiftytwo, fiftythree, fiftyfour, fiftyfive, fiftysix;
+$font-sizes-values: 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56;
+
+@each $size in $font-sizes {
+
+	$i: index($font-sizes, $size);
+
+	%#{$size}-font {
+		font-size: #{nth($font-sizes-values, $i)}px;
+		line-height: #{nth($font-sizes-values, $i)+5}px;
+	}
+
+	.#{$size}-font {
+		font-size: #{nth($font-sizes-values, $i)}px;
+		line-height: #{nth($font-sizes-values, $i)+5}px;
+	}
+
+}
+
+// ==========================================================================
+// Global Default Variables | Global
+// ==========================================================================
+
+$default-font: 'HelveticaNeueW01-45Ligh';
+$roman-font: 'HelveticaNeueW01-55Roma';
+$thin-font: 'HelveticaNeueW01-Thin';
+$medium-font: 'HelveticaNeueW01-65Medi';
+$bold-font: 'HelveticaNeueW01-75Bold';
+$default-lineheight: 145%;
+$default-heading-padding-bottom: 3%;
+$base-spacing-unit: 2em;
+
+// ==========================================================================
+// Masthead Variables | Global
+// ==========================================================================
+
+$masthead-background: map-get($map-colors , cwhite);
+$masthead-min-height: 115px;
+$masthead-min-height-small: 80px;
+$masthead-min-height-mobile: 130px;
+
+
+// ==========================================================================
+// Layer Variables | Global
+// ==========================================================================
+
+$section-padding-top: 100px;
+$section-padding-bottom: 100px;

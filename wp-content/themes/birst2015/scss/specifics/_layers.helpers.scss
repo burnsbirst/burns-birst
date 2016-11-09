@@ -1,0 +1,285 @@
+section {
+	
+	&.background_cover {
+		background-repeat: no-repeat;
+		background-size: cover;
+	}
+	
+	&.parallax {
+		background-position: center top;
+		background-repeat: no-repeat;
+	}
+	
+}
+
+.layer--columns {
+	
+	.mktoForm {
+		
+		display: block;
+		margin: 0 auto;
+		width: 90% !important;
+		
+		.mktoFormRow {
+			
+			float: left;
+			padding-bottom: 10px;
+			position: relative;
+			width: 50%;
+			
+			@include respond("max-width: 768px") {
+				
+				width: 100% !important;
+				
+			}
+			
+			.mktoLabel {
+				
+				color: map-get($map-colors, cwhite);
+				width: 100%;
+				
+				p {
+					
+					display: block;
+					float: left;
+					margin: 0px 0 0 10px;
+					padding: 0;
+					width: 100%;
+					
+				}
+				
+				
+			}
+			
+			label {
+				
+				font-size: 1rem;
+				
+			}
+			
+			input, select, textarea {
+					
+				border: none;
+				color: map-get($map-colors, cmediumgray) !important;
+				margin-top: 1px;
+				padding: 0.8125rem;
+				width: 90% !important;
+				
+				@include border-radius(5px);
+					
+			}
+      
+      textarea {
+        width: 200% !important;
+        height: 100px;
+        
+        @include respond("max-width: 768px") {
+          width: 100% !important;
+        }
+        
+      }
+      
+				select {
+					
+					padding: 0.75rem;
+					
+				}
+			
+			.mktoAsterix {
+					
+				float: left;
+				margin-bottom: -35px;
+					
+			}
+			
+		}
+		
+		.mktoError {
+			
+			position: absolute;
+			right: 8% !important;
+			top: 0px;
+			
+		}
+		
+		.mktoButtonRow {
+				
+			float: left;
+			text-align: center;
+			width: 100%;
+				
+			.mktoButtonWrap {
+				
+				margin: 0 auto !important;
+					
+				.mktoButton {
+						
+					background: map-get($map-colors, cblue2);
+					border: none;
+					box-shadow: none;
+					color: map-get($map-colors, cwhite);
+					font-size: 1.065rem;
+					font-family: $medium-font;
+					margin: 0 auto !important;
+					margin-top: 0px !important;
+					padding: 1.6rem 2rem;
+					text-decoration: none;
+					text-shadow: none;
+					text-transform: uppercase;
+					
+					@include border-radius(0px);
+						
+				}
+					
+			}
+				
+		}
+		
+	}
+	
+}
+
+.page-contact, .page-become-a-partner {
+	
+	p:has(> script) { display: block; height: 0; }
+	
+	.mktoButton {
+		
+		border: none;
+		box-shadow: none;
+		color: #fff;
+		font-size: 1.065rem;
+		font-family: "HelveticaNeueW01-65Medi";
+		margin-left: 10px !important;
+		margin-top: 10px !important;
+		padding: 1.6rem 2rem;
+		text-decoration: none;
+		text-shadow: none;
+		text-transform: uppercase;
+		-moz-border-radius: 0px;
+		-webkit-border-radius: 0px;
+		border-radius: 0px;
+		
+	}
+	
+	.mktoButtonRow {
+		
+		width: 90% !important;
+		
+	}
+	
+	.mktoPlaceholderState {
+		
+		position: absolute;
+		top: -45px;
+		width: 95%;
+		
+		/*
+    &:before {
+			content: "STATE N/A";
+			color: #5c8fab;
+			font-size: 17px;
+			text-align: center;
+			width: 100%;
+			display: block;
+			font-family: HelveticaNeueW01-75Bold;
+		}
+    */
+    
+		
+	}
+	
+	.mktoLabel {
+    width: 100% !important;
+    margin-left: 20px !important;
+	}
+	
+	.mktoOffset {
+		display: none;
+	}
+	
+	.mktoAsterix {
+		
+		color: map-get($map-colors, cwhite) !important;
+		position: absolute !important;
+		left: 5px !important;
+		top: 7px !important;
+		
+	}
+	
+	
+	.mktoError {
+		
+		text-align: right;
+		top: -25px !important;
+		width: 100%;
+		
+		.mktoErrorMsg {
+			
+			background: transparent !important;
+			border: 0 !important;
+			border-radius: 0;
+			box-shadow: none !important;
+			position: absolute;
+			max-width: 100% !important;
+			right: 0px;
+			text-align: right;
+			text-shadow: none !important;
+			top: 0px !important;
+			width: 100%;
+			-webkit-box-shadow: none !important;
+			
+			.mktoErrorDetail {
+				display: inline !important;
+			}
+		
+		}
+		
+	}
+	
+	.mktoErrorArrowWrap {
+		
+		display: none !important;
+		
+	}
+	
+	.mktoForm {
+		
+		margin-top: -40px !important;
+		
+		.mktoFormRow {
+		
+			display: inline-block;
+			float: none;
+			padding-bottom: 0px !important;
+			width: 50% !important;
+      
+      @include respond("max-width: 768px") {
+        display: block;
+        width: 100% !important;
+      }
+			
+			.mktoFormCol {
+				
+				width: 100% !important;
+				
+				.mktoFieldWrap {
+					
+					width: 100% !important;
+										
+				}
+				
+			}
+			
+		}
+    
+    .mktoButtonRow {
+      @include respond("max-width: 768px") {
+        margin-top: 20px;
+      }
+      
+    }
+		
+	}
+	
+}

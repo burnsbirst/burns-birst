@@ -1,0 +1,80 @@
+<?php
+
+require_once get_template_directory() . '/classes/AtreNet_DateRange.php';
+
+/**
+ * Helper class for formatting dates.
+ */
+class AtreNet_DateFormat {
+
+/**
+ * Get a formatted date.
+ *
+ * Uses a provided format lookup to format a date. If no format lookup is provided
+ * then a default format will be used.
+ *
+ * @param  string  $date  The date in a format parsable by strtotime()
+ * @param  array  $format_lookup  Optional list of date formats
+ *
+ * @return string
+ */
+  public static function getFormattedDate($date, $format_lookup = array()) {
+    return self::getFormattedDateRange($date, '', $format_lookup);
+  }
+
+  /**
+   * Get a formatted date range.
+   *
+   * @param  string  $date1  The first date in the range
+   * @param  string  $date2  The second date in the range
+   * @param  array  $format_lookup  Optional list of date formats
+   *
+   * @return string
+   */
+  public static function getFormattedDateRange($date1, $date2, $format_lookup = array()) {
+    $range = new AtreNet_DateRange($date1, $date2);
+    $format_type = $range->determine_format_type();
+    $format = self::_get_format($format_type, $format_lookup);
+    return preg_replace_callback('/%(\w)(\d)/', array($range, 'get_date_part'), $format);
+  }
+
+  /**
+   * @internal
+   * Get the format for formatting the date based on date type (from range)
+   *
+   * If no format lookup is provided, a default format for the type will be used.
+   *
+   * @param  string  $type  The type of format to use
+   * @param  array  $format_lookup  Optional lookup table for format based on type
+   */
+  private static function _get_format($type, $format_lookup = array()) {
+    $format = '';
+
+    // TODO Document format template.
+    if ('same_day_format' == $type) {
+      $lookup_key = 'single_day_format';
+      $format = '%M1 %j1, %Y1';
+    }
+    else if ('same_month_format' == $type) {
+      $lookup_key = 'single_month_format';
+      $format = '%M1 %j1-%j2, %Y1';
+    }
+    else if ('same_year_format' == $type) {
+      $lookup_key = 'multi_month_format';
+      $format = '%M1 %j1 - %M2 %j2, %Y1';
+    }
+    else if ('diff_year_format' == $type) {
+      $lookup_key = 'multi_year_format';
+      $format = '%M1 %j1, %Y1 - %M2 %j2, %Y2';
+    }
+
+    if ( array_key_exists($lookup_key, $format_lookup) ) {
+      $format = $format_lookup[$lookup_key];
+    }
+
+    return $format;
+  }
+
+}
+
+

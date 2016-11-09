@@ -1,0 +1,197 @@
+.widgettitle {
+	
+}
+.widget {
+	.widget-title {
+		@extend %fifteen-font;
+		@extend %color--cbrown;
+		font-family: $bold-font;
+		text-transform:uppercase;
+	}
+	&#text-2 {
+		position:relative;
+		.searchform {
+			.searchbox {
+				@include font-default-set($default-font, 15px, 15px);
+				@extend %color--cwhite;
+				background:#ff7126;
+				border:none;
+				border-radius:4px;
+				padding:8px 10px;
+				width:100%;
+				@include respond("max-width: 900px") {
+					font-size:12px;
+				}
+			}
+			.searchbutton {
+				border:none;
+				border-left:1px solid white;
+				position:absolute;
+				height:100%;
+				top:0;
+				right:0;
+				width:40px;
+				border-top-right-radius:4px;
+				border-bottom-right-radius:4px;
+				border-top-left-radius:0;
+				border-bottom-left-radius:0;
+				box-shadow:none;
+				background:transparent;
+				z-index:3;	
+			}
+			.search--icon {
+				@include show-icon-sprite('search-sidebar');
+				position:absolute;
+				top:9px;
+				right:11px;
+				z-index:2;
+			}
+			.search--icon-background {
+				@extend %bg-color--corange;	
+				position:absolute;
+				height:100%;
+				top:0;
+				right:0;
+				width:40px;
+				border-top-right-radius:4px;
+				border-bottom-right-radius:4px;
+				border-top-left-radius:0;
+				border-bottom-left-radius:0;
+			}
+		}
+	}
+	&#text-3 {
+		position:relative;
+		margin:10px 0;
+		.widget__rss {
+			@include font-default-set($bold-font, 15px, 15px);
+			@extend %color--cwhite;
+			background:#5c9fb7;
+			border-radius:4px;
+			padding:10px;
+			text-transform:uppercase;
+			@include respond("max-width: 900px") {
+				font-size:12px;
+			}
+			.rss--icon {
+				@extend %bg-color--cblue;	
+				position:absolute;
+				width:40px;
+				height:100%;
+				top:0;
+				right:0;
+				border-top-right-radius:4px;
+				border-bottom-right-radius:4px;
+				border-left:1px solid white;
+				&:after {
+					@include show-icon-sprite('arrow-right');
+					content:'';
+					position:absolute;
+					top: 10px;
+					left: 8px;
+				}
+			}
+		}
+	}
+	&#text-4 {
+		margin-bottom:2em;
+		position:relative;
+		.widget__email {
+			@include font-default-set($bold-font, 15px, 15px);
+			@extend %color--cwhite;
+			background:#9fa2a4;
+			border-radius:4px;
+			padding:10px;
+			text-transform:uppercase;
+			@include respond("max-width: 900px") {
+				font-size:12px;
+			}
+			.email--icon {
+				@extend %bg-color--cmediumgray3;
+				position:absolute;
+				width:40px;
+				height:100%;
+				top:0;
+				right:0;
+				border-top-right-radius:4px;
+				border-bottom-right-radius:4px;
+				border-left:1px solid white;
+				&:after {
+					@include show-icon-sprite('arrow-right');
+					content:'';
+					position:absolute;
+					top: 10px;
+					left: 8px;
+				}
+			}
+		}
+	}
+	&.widget_categories {
+		margin-bottom:2em;
+		ul {
+			list-style:none;
+			margin-top:5px;
+			.cat-item {
+				border-top:1px solid #cacccd;
+				margin-bottom:0;
+				padding:8px 0;
+				&:last-of-type {
+					border-bottom:1px solid #cacccd;
+				}
+				.article-count {
+					margin-left:0.5em;
+					&:before {
+						content:'(';
+						margin-right:-3px;
+					}
+					&:after {
+						content:')';
+						margin-left:2px;
+					}
+				}
+				:before {
+					content:'\2192';
+					margin-right:0.5em; 
+				}
+			}
+		}
+	}
+	&.widget_tag_cloud {
+		.tagcloud {
+			a {
+				@extend %color--cwhite;
+				font-size:13px !important;
+				border-radius:4px;
+				padding:4px;
+				&:nth-child(even) {
+					background:#bcbbbb;
+				}
+				&:nth-child(odd) {
+					background:#a7a5a5;
+				}
+				&:nth-child(1) {
+					background:#908e8e;
+				}
+				&:nth-child(2n) {
+					background:#a7a5a5;
+				}
+				&:nth-child(3n) {
+					background:#4e4b4b;
+				}
+				&:nth-child(4n) {
+					background:#adadad;
+				}
+				&:nth-child(5n) {
+					background:#bcbbbb;
+				}
+				&:nth-child(7n) {
+					background:#646161;
+				}
+				div {
+					display:inline-block;
+					margin-bottom:5px;
+				}
+			}
+		}
+	}
+}

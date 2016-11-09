@@ -1,0 +1,121 @@
+<?php
+
+class AtreNet_WordPress_Helper {
+
+  const VERSION = '0.0.1';
+
+  protected static $bridge = null;
+
+  protected static $instance = null;
+
+  /**
+   * Return single instance of this class
+   *
+   * @return object
+   */
+  public static function getInstance($bridge = null) {
+    if (null === static::$instance) {
+      static::$instance = new static($bridge);
+    } else {
+      if ($bridge !== null) {
+        die("Can't pass in a bridge after initial instantiation");
+      }
+    }
+
+    return static::$instance;
+  }
+
+  protected function __construct($bridge) {
+    static::$bridge = $bridge;
+  }
+
+  public function getBridge() {
+    return static::$bridge;
+  }
+
+  // Memoization wrapper for get_post_type from WP
+  protected function get_post_type($post_id) {
+    static $post_type_cache;
+
+    $cache_key = $post_id;
+    if ( !isset($post_type_cache[$cache_key]) ) {
+      // Cache miss
+      $post_type_cache[$cache_key] = $this->getBridge()->get_post_type($post_id);
+    } else {
+      // Cache hit
+    }
+    return $post_type_cache[$cache_key];
+  }
+
+  protected function normalize_post_id($post_id) {
+    if ( !$post_id && $this->in_loop() ) {
+      return $this->getBridge()->get_the_ID();
+    }
+
+    return $post_id;
+  }
+
+  protected function in_loop() {
+    return $this->getBridge()->get_post() !== null;
+  }
+
+  protected function normalize_post_type($post_id, $post_type = false) {
+    if ($post_type === false) {
+      $post_type = $this->getBridge()->get_post_type($post_id);
+    }
+    return $post_type;
+  }
+
+
+
+
+}
+
+class AtreNet_WordPress_Bridge {
+
+  const VERSION = '0.0.1';
+
+  protected static $instance = null;
+
+  public static function getInstance() {
+    if (null === static::$instance) {
+      static::$instance = new static;
+    }
+
+    return static::$instance;
+  }
+
+  protected function __construct() {
+  }
+
+  public function get_post_type($post_id) {
+    return get_post_type($post_id);
+  }
+
+  public function get_post_meta($post_id) {
+    return get_post_meta($post_id);
+  }
+
+  public function get_the_ID() {
+    return get_the_ID();
+  }
+
+  public function get_post($id = null, $output = 'OBJECT', $filter = 'raw') {
+    return get_post($id, $output, $filter);
+  }
+
+  public function maybe_unserialize($original) {
+    return maybe_unserialize($original);
+  }
+
+  public function maybe_serialize($data) {
+    return maybe_serialize($data);
+  }
+
+  public function update_post_meta($post_id, $meta_key, $meta_value, $prev_value = '') {
+    return update_post_meta($post_id, $meta_key, $meta_value, $prev_value);
+  }
+
+}
+
+

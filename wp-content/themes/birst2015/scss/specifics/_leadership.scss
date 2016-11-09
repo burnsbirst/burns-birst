@@ -1,0 +1,37 @@
+.shortcode--leadership-bios {
+	.bio-entry {
+		margin-bottom:4em;
+	}
+	.aside-content {
+		display:inline-block;
+		vertical-align:top;
+		width:22%;
+		img {
+			padding-right:15px;
+		}
+	}
+	.main-content {
+		display:inline-block;
+		vertical-align:top;
+		width:77%;
+		@include respond("max-width: 768px") {
+			width:100%;
+		}
+		.bio-headline {
+			@include font-default-set($bold-font, 24px, 26px);
+			text-transform:uppercase;
+		}
+		.bio-text { 
+			margin-top:15px;
+		}
+	}
+}
+
+.page-board-of-directors {
+	.aside-content {
+		display: none;
+	}
+	.main-content {
+		width: 100%;
+	}
+}

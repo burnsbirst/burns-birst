@@ -1,0 +1,54 @@
+/*
+Theme Name: Birst 2015
+Theme URI: http://www.atre.net
+Author: AtreNet
+Author URI: http://www.atre.net
+Description: Custom theme for Appthority developed by AtreNet.
+Template: plinth
+Version: 0.0.1
+Tags:
+*/
+@charset "UTF-8";
+
+// INIT
+
+$svg-gradient-shim-threshold: 1%;
+
+
+@import 'compass/css3';
+@import '../../plinth/scss/vendor/normalize'; 
+@import 'vendor/gumby/var/settings';
+@import 'vendor/sr/sr';
+@import 'vendor/jquery-ui';
+@import '../../plinth/scss/vendor/gumby/functions/all';
+@import '../../plinth/scss/vendor/gumby/grid';
+@import '../../plinth/scss/vendor/scut';
+@import '../../plinth/scss/vendor/dropkick/dropkick';
+@import '../../plinth/scss/vendor/magnific-popup/main';
+
+// BASE
+
+// variables, fonts, mixins, helpers... common styles used across the entire site
+@import '../../plinth/scss/base/__base';
+@import 'base/__base';
+
+
+// COMPONENTS
+
+// reusable/framework components
+@import '../../plinth/scss/components/__components';
+// component skins
+@import 'components/__skins';
+
+
+// SPECIFICS
+
+// more specific declarations, may be built on a per page basis
+@import 'specifics/__specifics';
+
+
+// PRINT
+
+// streamlined styling for physical prints
+@import 'print';
+

@@ -1,0 +1,127 @@
+#masthead-wrapper {
+  position:fixed;
+  width:100%;
+  z-index:5;
+  top:0;
+
+  #masthead {
+		
+		background: $masthead-background;
+		min-height: $masthead-min-height;
+		
+		transition: all 0.6s ease-in-out;
+		
+		@include respond("max-width: 768px") {
+			min-height:55px;
+		}
+		
+		.masthead-container {
+			@include row();
+			padding-top: 0;
+			padding-bottom: 0;
+			padding-left: 0px;
+			@include respond("max-width: 768px") {
+				padding-right: 0;
+			}
+			.navbar-header {
+				@include column(4);
+				
+				
+				@include respond("max-width: 768px") {
+					width:70%;
+				}
+				
+				.site-branding {
+					position: relative;
+					height: $masthead-min-height;
+					transition: all 0.6s ease-in-out;
+					
+					@include respond("max-width: 768px") {
+						height:55px;
+					}
+					
+					a {
+						bottom: 18px;
+						max-width: 100%;
+						position:absolute;
+						transition: all 0.6s ease-in-out;
+						
+						@include respond("max-width: 768px") {
+							bottom: 5px;
+							left: 7px;
+							
+							img {
+								height: 35px;
+								width: auto;
+								max-width: 100% !important;
+							}
+							
+						}
+					}
+				}
+			}
+			.navigation-container {
+				@include column(11);
+				margin-left: 0;
+				padding-top: 7px;
+				@include respond("max-width: 768px") {
+					padding-top:0;
+					width: 100%;
+				}
+				
+				.navbar-collapse#mobile-navigation {
+					border-bottom:none;
+					width: 100%;
+					li {
+						border-bottom: 1px solid map-get($map-colors, cdarkgray2);
+						margin-left: 5px;
+						margin-right: 5px;
+						padding:5px 0;
+						&:last-of-type {
+							border-bottom:none;
+						}
+					}
+				}
+			}
+		}
+		
+  }
+	
+	&.small {
+
+		#masthead {
+			min-height: $masthead-min-height-small;
+			height: $masthead-min-height-small;
+			.masthead-container {
+				.navbar-header {
+					.site-branding {
+						
+						height: $masthead-min-height-small;
+						
+						a {
+							bottom: 5px;
+							
+							img {
+								max-width: 100% !important;
+							}
+							
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	@include respond("max-width: 768px") {
+		max-height: $masthead-min-height-mobile;
+	}
+	
+}
+
+.secondary-nav--container {
+  
+
+  .secondary-nav--container-row {
+    @include row();
+  }
+}

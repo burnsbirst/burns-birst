@@ -1,0 +1,157 @@
+
+/* _____ MIXINS _____ */
+
+// Fonts
+// ==========================================================================
+
+@mixin importFont($fontname, $filename, $svgLabel, $isBold: false, $isItalic: false) {
+
+  @font-face {
+    font-family: $fontname;
+
+    // IE9 Compat Modes
+    src: url('fonts/#{$filename}.eot');
+    // IE6-IE8
+    src: url('fonts/#{$filename}.eot?#iefix') format('embedded-opentype'),
+    // Modern Browsers
+    url('fonts/#{$filename}.woff') format('woff'),
+    // Safari, Android, iOS
+    url('fonts/#{$filename}.ttf') format('truetype'),
+    // Legacy iOS
+    url('fonts/#{$filename}.svg##{$svgLabel}') format('svg');
+
+    @if $isBold {
+      font-weight: bold;
+    } @else {
+      font-weight: normal;
+    }
+
+    @if $isItalic {
+      font-style: italic;
+    } @else {
+      font-style: normal;
+    }
+  }
+
+}
+
+
+// Units
+// ==========================================================================
+
+@function em($pixels, $base: $baseFontSize) {
+  @if (unitless($pixels)) {
+    $pixels: $pixels * 1px;
+  }
+
+  @if (unitless($base)) {
+    $base: $base * 1px;
+  }
+
+  @return $pixels / $base * 1em;
+  //@return #{$pixels/$context}em
+}
+
+@mixin remIt($attr, $value, $value2: '', $before: '', $between:'', $after: '', $useModernizr: true) {
+
+  $cssremunit: getPrefix(cssremunit, $useModernizr);
+
+  // it's god to keep the fallback at all times for debug purpose
+  //#{map-get($cssremunit, no)} & {
+
+    @if $value2 == '' {
+      #{$attr}: #{$before}#{$value}px#{$after};
+    } @else {
+      #{$attr}: #{$before}#{$value}px#{$between}#{$value2}px#{$after};
+    }
+  //}
+
+  #{map-get($cssremunit, yes)} & {
+
+    @if $value2 == '' {
+      #{$attr}: #{$before}#{$value/$baseFontSize}rem#{$after};
+    } @else {
+      #{$attr}: #{$before}#{$value/$baseFontSize}rem#{$between}#{$value/$baseFontSize}rem#{$after};
+    }
+
+  }
+}
+
+
+// Forms
+// ==========================================================================
+
+// https://github.com/michaelsacca/Compass-Placeholder-Text-Mixin
+@mixin input-placeholder {
+  &.placeholder { @content; }
+  &:-moz-placeholder { @content; }
+  &::-moz-placeholder { @content; }
+  &:-ms-input-placeholder { @content; }
+  &::-webkit-input-placeholder { @content; }
+}
+
+
+// Shapes
+// ==========================================================================
+@mixin triangle($dir: 'left', $width: 10px, $height: 10px, $color: #fff) {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-color: transparent;
+
+  @if ($dir == 'up' or $dir == 'down') {
+    border-width: $height ($width/2) $height ($width/2);
+  } @else {
+    border-width: ($height/2) $width ($height/2) $width;
+  }
+
+  @if ($dir == 'up') {
+    border-top-width: 0;
+    border-bottom-color: $color;
+  } @else if ($dir == 'right') {
+    border-right-width: 0;
+    border-left-color: $color;
+  } @else if ($dir == 'down') {
+    border-bottom-width: 0;
+    border-top-color: $color;
+  } @else if ($dir == 'left') {
+    border-left-width: 0;
+    border-right-color: $color;
+  }
+}
+
+
+//--------------------------------
+// Photoshop Drop Shadow
+//--------------------------------
+@mixin photoshop-drop-shadow ($angle: 0, $distance: 0, $spread: 0, $size: 0, $color: #000, $inner: false) {
+  $angle: (180 - $angle) * pi() / 180; // convert to radians
+  $h-shadow: round(cos($angle) * $distance);
+  $v-shadow: round(sin($angle) * $distance);
+  $css-spread: $size * $spread/100;
+  $blur: ($size - $css-spread);
+  $inset: if($inner != false, 'inset', '');
+
+  @include box-shadow($h-shadow $v-shadow $blur $css-spread $color unquote($inset));
+}
+
+//--------------------------------
+// Photoshop Inner Shadow
+//--------------------------------
+@mixin photoshop-inner-shadow ($angle: 0, $distance: 0, $spread: 0, $size: 0, $color: #000) {
+  @include photoshop-drop-shadow ($angle, $distance, $spread, $size, $color, true);
+}
+
+//--------------------------------
+// Photoshop Text Shadow
+//--------------------------------
+@mixin photoshop-text-shadow ($angle: 0, $distance: 0, $spread: 0, $size: 0, $color: #000) {
+  // NOTE: $spread has no effect for text shadows
+  $angle: (180 - $angle) * pi() / 180;
+  $h-shadow: round(cos($angle) * $distance);
+  $v-shadow: round(sin($angle) * $distance);
+  $css-spread: $size * $spread/100;
+  $blur: ($size - $css-spread);
+ 
+  @include text-shadow($h-shadow $v-shadow $blur $color);
+}

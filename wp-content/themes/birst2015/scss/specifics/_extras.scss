@@ -1,0 +1,119 @@
+%gradient-down {
+	background: map-get($map-colors, clightgray); /* Old browsers */
+	background: -moz-linear-gradient(top, map-get($map-colors, clightgray3) 0%, map-get($map-colors, cwhite) 31%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,map-get($map-colors, clightgray3)), color-stop(31%,map-get($map-colors, cwhite))); 
+	/* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, map-get($map-colors, clightgray3) 0%,map-get($map-colors, cwhite) 31%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, map-get($map-colors, clightgray3) 0%,map-get($map-colors, cwhite) 31%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, map-get($map-colors, clightgray3) 0%,map-get($map-colors, cwhite) 31%); /* IE10+ */
+	background: linear-gradient(to bottom, map-get($map-colors, clightgray3) 0%,map-get($map-colors, cwhite) 31%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='map-get($map-colors, clightgray)', endColorstr='map-get($map-colors, cwhite)',GradientType=0 ); 		  /* IE6-9 */
+}
+.gradient-down {
+	@extend %gradient-down;
+}
+
+%gradient-up {
+	background: map-get($map-colors, cwhite); /* Old browsers */
+	background: -moz-linear-gradient(top, map-get($map-colors, cwhite) 0%, map-get($map-colors, clightgray) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,map-get($map-colors, cwhite)), color-stop(100%,map-get($map-colors, clightgray))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, map-get($map-colors, cwhite) 0%,map-get($map-colors, clightgray) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, map-get($map-colors, cwhite) 0%,map-get($map-colors, clightgray) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, map-get($map-colors, cwhite) 0%,map-get($map-colors, clightgray) 100%); /* IE10+ */
+	background: linear-gradient(to bottom, map-get($map-colors, cwhite) 0%,map-get($map-colors, clightgray) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='map-get($map-colors, cwhite)', endColorstr='map-get($map-colors, clightgray)',GradientType=0 ); /* IE6-9 */
+}
+.gradient-up {
+	@extend %gradient-up;
+}
+
+.small-text {
+	font-size: 12px;
+}
+
+.white-text {
+	@extend %color--cwhite;
+}
+
+.orange-text {
+	@extend %color--corange;
+}
+
+.light-gray-text {
+	@extend %color--clightgray8;
+}
+
+.layer-border-top {
+	border-top: 1px solid map-get($map-colors, cmediumgray4);
+}
+
+.layer-border-bottom {
+	border-bottom: 1px solid map-get($map-colors, cmediumgray4); 
+}
+
+.img-border {
+	border: 1px solid map-get($map-colors, cimgbordergray);
+	@include border-radius(5px);
+}
+
+.column-pad-top {
+	padding-top: 60px;
+}
+
+.why-birst-center {
+	margin-right: 90px;
+	@include respond("max-width: 768px") {
+		margin-right: 0px;
+	}
+}
+
+.background_align_bottom {
+	background-position: center 100% !important;
+}
+
+.circle-badge {
+	@extend %bg-color--cbrown;
+	@extend %thirtyeight-font;
+	display:inline-block;
+	height: 140px;
+	border-radius:  140px;
+	width: 140px;
+	
+	.circle-badge-c {
+		border-top: 1px solid map-get($map-colors, cbrown3);
+		border-bottom: 1px solid map-get($map-colors, cbrown3);
+		line-height: 360%;
+	}
+	
+}
+
+.hide-mobile-bg-image {
+	@include respond("max-width: 768px") {
+		background-image: none !important;
+	}
+}
+
+body.noscroll
+{
+    position: fixed; 
+    overflow-y: scroll;
+    width: 100%;
+}
+
+.text-indent {
+	
+	display: block;
+	width: 90%;
+	
+}
+
+.small-upper-heading {
+	
+	display: block;
+	line-height: 1.5rem;
+	font-size: 0.9375rem;
+	font-family: $medium-font;
+	text-transform: uppercase;
+	
+	
+}

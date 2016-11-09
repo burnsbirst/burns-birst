@@ -1,0 +1,1520 @@
+/*
+* Scut, a collection of Sass utilities
+* to ease and improve our implementations of common style-code patterns.
+* v0.10.4
+* Docs at http://davidtheclark.github.io/scut
+*/
+/* ===== BASE ===== */
+/* _____ SYSTEM TOOLS _____ */
+/* _____ MIXINS _____ */
+/* _____ UNIVERSAL HELPERS _____ */
+/**
+ * Grayscale image effect
+ *
+ * @see http://labs.voronianski.com/css3-grayscale/
+ * @see http://www.karlhorky.com/2012/06/cross-browser-image-grayscale-with-css.html
+ */
+/*
+ * This may place the element on a half pixel resulting in blurry text. To
+ * prevent this, apply 'transform-style: preserve-3d;' to the parent element.
+ */
+.icons-sprite {
+  background-image: url('/images/icons-s8532d233d3.png');
+  background-repeat: no-repeat;
+}
+
+/* _____ GLOBAL STYLES _____ */
+*,
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  line-height: 19.2px;
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  width: 100%;
+  min-height: 100%;
+  font-family: arial, helvetica, sans-serif;
+  font-size: 14px;
+  line-height: 22px;
+  font-size: 0.875rem;
+  line-height: 1.375rem;
+  color: #333;
+  background: #fff;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  clear: both;
+  margin: 0;
+}
+
+hr {
+  background-color: #ccc;
+  border: 0;
+  height: 1px;
+  margin-bottom: 1.5em;
+}
+
+/* Text elements */
+p {
+  margin: 0 0 1.5em;
+}
+
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after, q:before, q:after {
+  content: "";
+  content: none;
+}
+
+ul, ol {
+  margin: 0 0 15px 1.2em;
+  padding: 0;
+}
+
+ul {
+  list-style: disc;
+}
+
+ol {
+  list-style: decimal;
+}
+
+li {
+  margin-bottom: 5px;
+}
+
+li > ul,
+li > ol {
+  margin-bottom: 0;
+  margin-left: 1.5em;
+}
+
+dt {
+  font-weight: bold;
+}
+
+dd {
+  margin: 0 1.5em 1.5em;
+}
+
+b, strong {
+  font-weight: bold;
+}
+
+dfn, cite, em, i {
+  font-style: italic;
+}
+
+blockquote {
+  margin: 0 1.5em;
+}
+
+address {
+  margin: 0 0 1.5em;
+}
+
+pre {
+  background: #eee;
+  font-family: Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", "Courier 10 Pitch", Courier, monospace, arial, helvetica, sans-serif;
+  font-size: 15px;
+  line-height: 18px;
+  font-size: 0.9375rem;
+  line-height: 1.125rem;
+  margin-bottom: 1.6em;
+  padding: 1.6em;
+  overflow: auto;
+  max-width: 100%;
+}
+
+code, kbd, tt, var {
+  font-family: Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", "Courier 10 Pitch", Courier, monospace, arial, helvetica, sans-serif;
+  font-size: 15px;
+  line-height: 18px;
+  font-size: 0.9375rem;
+  line-height: 1.125rem;
+}
+
+abbr, acronym {
+  border-bottom: 1px dotted #666;
+  cursor: help;
+}
+
+mark, ins {
+  background: #fff9c0;
+  text-decoration: none;
+}
+
+sup,
+sub {
+  font-size: 75%;
+  height: 0;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sup {
+  bottom: 1ex;
+}
+
+sub {
+  top: 0.5ex;
+}
+
+small {
+  font-size: 75%;
+}
+
+big {
+  font-size: 125%;
+}
+
+figure {
+  margin: 0;
+}
+
+table {
+  margin: 0 0 1.5em;
+  width: 100%;
+}
+
+th {
+  font-weight: bold;
+}
+
+img {
+  height: auto;
+  /* Make sure images are scaled correctly. */
+  max-width: 100%;
+  /* Adhere to container width. */
+}
+
+button,
+input,
+select,
+textarea {
+  font-size: 100%;
+  /* Corrects font size not being inherited in all browsers */
+  margin: 0;
+  /* Addresses margins set differently in IE6/7, F3/4, S5, Chrome */
+  vertical-align: baseline;
+  /* Improves appearance and consistency in all browsers */
+  *vertical-align: middle;
+  /* Improves appearance and consistency in all browsers */
+}
+
+button,
+input {
+  line-height: normal;
+  /* Addresses FF3/4 setting line-height using !important in the UA stylesheet */
+}
+
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  border: 1px solid #ccc;
+  border-color: #ccc #ccc #bbb #ccc;
+  border-radius: 3px;
+  background: #e6e6e6;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), inset 0 15px 17px rgba(255, 255, 255, 0.5), inset 0 -5px 12px rgba(0, 0, 0, 0.05);
+  color: rgba(0, 0, 0, 0.8);
+  cursor: pointer;
+  /* Improves usability and consistency of cursor style between image-type 'input' and others */
+  -webkit-appearance: button;
+  /* Corrects inability to style clickable 'input' types in iOS */
+  font-size: 12px;
+  font-size: 1.2rem;
+  line-height: 1;
+  padding: .6em 1em .4em;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+button:hover,
+html input[type="button"]:hover,
+input[type="reset"]:hover,
+input[type="submit"]:hover {
+  border-color: #ccc #bbb #aaa #bbb;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), inset 0 15px 17px rgba(255, 255, 255, 0.8), inset 0 -5px 12px rgba(0, 0, 0, 0.02);
+}
+
+button:focus,
+html input[type="button"]:focus,
+input[type="reset"]:focus,
+input[type="submit"]:focus,
+button:active,
+html input[type="button"]:active,
+input[type="reset"]:active,
+input[type="submit"]:active {
+  border-color: #aaa #bbb #bbb #bbb;
+  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.5), inset 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  box-sizing: border-box;
+  /* Addresses box sizing set to content-box in IE8/9 */
+  padding: 0;
+  /* Addresses excess padding in IE8/9 */
+}
+
+input[type="search"] {
+  -webkit-appearance: textfield;
+  /* Addresses appearance set to searchfield in S5, Chrome */
+  -webkit-box-sizing: content-box;
+  /* Addresses box sizing set to border-box in S5, Chrome (include -moz to future-proof) */
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+
+input[type="search"]::-webkit-search-decoration {
+  /* Corrects inner padding displayed oddly in S5, Chrome on OSX */
+  -webkit-appearance: none;
+}
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  /* Corrects inner padding and border displayed oddly in FF3/4 www.sitepen.com/blog/2008/05/14/the-devils-in-the-details-fixing-dojos-toolbar-buttons/ */
+  border: 0;
+  padding: 0;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+input[type="tel"],
+textarea {
+  color: #666;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+input[type="password"]:focus,
+input[type="search"]:focus,
+textarea:focus {
+  color: #111;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="password"],
+input[type="search"] {
+  padding: 3px;
+}
+
+textarea {
+  overflow: auto;
+  /* Removes default vertical scrollbar in IE6/7/8/9 */
+  padding-left: 3px;
+  vertical-align: top;
+  /* Improves readability and alignment in all browsers */
+  width: 98%;
+}
+
+/* Links */
+a {
+  text-decoration: none;
+  -moz-transition: color 0.6s ease;
+  -o-transition: color 0.6s ease;
+  -webkit-transition: color 0.6s ease;
+  transition: color 0.6s ease;
+}
+
+/* Text */
+.underline {
+  text-decoration: underline;
+}
+
+/* Alignment */
+.alignleft {
+  display: inline;
+  float: left;
+  margin-right: 1.5em;
+}
+
+.alignright {
+  display: inline;
+  float: right;
+  margin-left: 1.5em;
+}
+
+.aligncenter {
+  clear: both;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Text meant only for screen readers */
+.screen-reader-text {
+  clip: rect(1px, 1px, 1px, 1px);
+  position: absolute !important;
+}
+
+.screen-reader-text:hover,
+.screen-reader-text:active,
+.screen-reader-text:focus {
+  background-color: #f1f1f1;
+  border-radius: 3px;
+  box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6);
+  clip: auto !important;
+  color: #21759b;
+  display: block;
+  font-size: 14px;
+  font-weight: bold;
+  height: auto;
+  left: 5px;
+  line-height: normal;
+  padding: 15px 23px 14px;
+  text-decoration: none;
+  top: 5px;
+  width: auto;
+  z-index: 100000;
+  /* Above WP toolbar */
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+}
+nav li {
+  margin: 0;
+}
+
+embed,
+iframe,
+object {
+  max-width: 100%;
+}
+
+.navbar-toggle {
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  position: relative;
+  float: right;
+  padding: 9px 10px;
+  margin: 8px 15px 8px 0;
+  background: transparent;
+  border: 1px solid transparent;
+}
+@media only screen and (min-width: 769px) {
+  .navbar-toggle {
+    display: none;
+  }
+}
+.navbar-toggle:hover {
+  background: #f2f2f2;
+}
+.navbar-toggle .icon-bar {
+  -moz-border-radius: 1px;
+  -webkit-border-radius: 1px;
+  border-radius: 1px;
+  background-color: #959595;
+  display: block;
+  width: 22px;
+  height: 2px;
+}
+.navbar-toggle .icon-bar + .icon-bar {
+  margin-top: 4px;
+}
+
+.collapse, .collapsing {
+  display: none;
+}
+
+@media only screen and (min-width: 768px) {
+  .navbar-collapse.collapse {
+    display: block !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+  .navbar-collapse.collapse#mobile-navigation {
+    display: none !important;
+  }
+}
+
+.navbar-collapse.in {
+  -moz-box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.09804);
+  -webkit-box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.09804);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.09804);
+  overflow-y: auto;
+}
+@media only screen and (min-width: 768px) {
+  .navbar-collapse.in {
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border: none !important;
+  }
+}
+.navbar-collapse.in#mobile-navigation {
+  border-bottom: 1px solid #d7d7d7;
+}
+
+a[href="tbd"] {
+  background: red !important;
+  color: yellow !important;
+  display: inline-block !important;
+}
+
+.responsive-test {
+  position: fixed;
+  top: 0;
+  right: 0;
+  -moz-border-radius: 0 0 0 10px;
+  -webkit-border-radius: 0;
+  border-radius: 0 0 0 10px;
+  border-bottom: 1px solid #666;
+  border-left: 1px solid #666;
+  display: block !important;
+  width: 140px;
+  background: #fff;
+  padding: 10px;
+  z-index: 1000;
+}
+
+.responsive-test--portrait-phones {
+  display: none;
+  font-size: 12px;
+}
+@media only screen and (max-width: 320px) {
+  .responsive-test--portrait-phones {
+    display: block;
+  }
+}
+
+.responsive-test--landscape-phones {
+  display: none;
+  font-size: 12px;
+}
+@media only screen and (min-width: 321px) and (max-width: 767px) {
+  .responsive-test--landscape-phones {
+    display: block;
+  }
+}
+
+.responsive-test--all-phones {
+  display: none;
+  font-size: 12px;
+}
+@media only screen and (max-width: 767px) {
+  .responsive-test--all-phones {
+    display: block;
+  }
+}
+
+.responsive-test--portrait-tablets {
+  display: none;
+  font-size: 12px;
+}
+@media only screen and (max-width: 768px) {
+  .responsive-test--portrait-tablets {
+    display: block;
+  }
+}
+
+.responsive-test--tablets {
+  display: none;
+  font-size: 12px;
+}
+@media only screen and (min-width: 768px) and (max-width: 939px) {
+  .responsive-test--tablets {
+    display: block;
+  }
+}
+
+.responsive-test--desktop {
+  display: none;
+  font-size: 12px;
+}
+@media only screen and (min-width: 768px) {
+  .responsive-test--desktop {
+    display: block;
+  }
+}
+
+.responsive-test--document-width {
+  display: none;
+  font-size: 12px;
+}
+@media only screen and (max-width: 960px) {
+  .responsive-test--document-width {
+    display: block;
+  }
+}
+
+.responsive-test--large-screens {
+  display: none;
+  font-size: 12px;
+}
+@media only screen and (min-width: 2880px) {
+  .responsive-test--large-screens {
+    display: block;
+  }
+}
+
+/* ===== PROJECT ===== */
+/* _____ VARIABLES _____ */
+.color--cred {
+  color: #ff0000;
+}
+
+.bg-color--cred {
+  background-color: #ff0000;
+}
+
+.color--corange {
+  color: #ff5800;
+}
+
+.navbar-toggle .icon-bar, .navbar-toggle .icon-bar:hover {
+  background-color: #ff5800;
+}
+
+.bg-color--corange {
+  background-color: #ff5800;
+}
+
+.color--corange2 {
+  color: #ca4b07;
+}
+
+.bg-color--corange2 {
+  background-color: #ca4b07;
+}
+
+.color--corangeover {
+  color: #ff7d38;
+}
+
+.bg-color--corangeover {
+  background-color: #ff7d38;
+}
+
+.color--cyellow {
+  color: #ffff00;
+}
+
+.bg-color--cyellow {
+  background-color: #ffff00;
+}
+
+.color--cgreen {
+  color: #00ff00;
+}
+
+.bg-color--cgreen {
+  background-color: #00ff00;
+}
+
+.color--cblue {
+  color: #408eaa;
+}
+
+.bg-color--cblue {
+  background-color: #408eaa;
+}
+
+.color--cblue2 {
+  color: #5c8fab;
+}
+
+.bg-color--cblue2 {
+  background-color: #5c8fab;
+}
+
+.color--cblueover {
+  color: #4bd0d4;
+}
+
+.bg-color--cblueover {
+  background-color: #4bd0d4;
+}
+
+.color--cviolet {
+  color: #551a8b;
+}
+
+.bg-color--cviolet {
+  background-color: #551a8b;
+}
+
+.color--cblack {
+  color: #000;
+}
+
+.bg-color--cblack {
+  background-color: #000;
+}
+
+.color--cwhite {
+  color: #fff;
+}
+
+.bg-color--cwhite {
+  background-color: #fff;
+}
+
+.color--cgray {
+  color: #8f9194;
+}
+
+.bg-color--cgray {
+  background-color: #8f9194;
+}
+
+.color--cdarkgray {
+  color: #414246;
+}
+
+.bg-color--cdarkgray {
+  background-color: #414246;
+}
+
+.color--cdarkgray2 {
+  color: #363333;
+}
+
+.bg-color--cdarkgray2 {
+  background-color: #363333;
+}
+
+.color--cdarkgray3 {
+  color: #545454;
+}
+
+.bg-color--cdarkgray3 {
+  background-color: #545454;
+}
+
+.color--cmediumgray {
+  color: #666666;
+}
+
+.bg-color--cmediumgray {
+  background-color: #666666;
+}
+
+.color--cmediumgray2 {
+  color: #616365;
+}
+
+.bg-color--cmediumgray2 {
+  background-color: #616365;
+}
+
+.color--cmediumgray3 {
+  color: #8e9294;
+}
+
+.bg-color--cmediumgray3 {
+  background-color: #8e9294;
+}
+
+.color--cmediumgray3over {
+  color: #bdb9bd;
+}
+
+.bg-color--cmediumgray3over {
+  background-color: #bdb9bd;
+}
+
+.color--cmediumgray4 {
+  color: #c7c8c9;
+}
+
+.bg-color--cmediumgray4 {
+  background-color: #c7c8c9;
+}
+
+.color--cmediumgray5 {
+  color: #cacccd;
+}
+
+.bg-color--cmediumgray5 {
+  background-color: #cacccd;
+}
+
+.color--cmediumgray6 {
+  color: #595959;
+}
+
+.bg-color--cmediumgray6 {
+  background-color: #595959;
+}
+
+.color--cmediumgray7 {
+  color: #c3c4c2;
+}
+
+.bg-color--cmediumgray7 {
+  background-color: #c3c4c2;
+}
+
+.color--cimgbordergray {
+  color: #e8e8e8;
+}
+
+.bg-color--cimgbordergray {
+  background-color: #e8e8e8;
+}
+
+.color--clightgray {
+  color: #bcbdbf;
+}
+
+.bg-color--clightgray {
+  background-color: #bcbdbf;
+}
+
+.color--clightgray2 {
+  color: #e5eaed;
+}
+
+.bg-color--clightgray2 {
+  background-color: #e5eaed;
+}
+
+.color--clightgray3 {
+  color: #eef1f4;
+}
+
+.bg-color--clightgray3 {
+  background-color: #eef1f4;
+}
+
+.color--clightgray4 {
+  color: #bcbec1;
+}
+
+.bg-color--clightgray4 {
+  background-color: #bcbec1;
+}
+
+.color--clightgray5 {
+  color: #eff2f4;
+}
+
+.bg-color--clightgray5 {
+  background-color: #eff2f4;
+}
+
+.color--clightgray6 {
+  color: #dbe3eb;
+}
+
+.bg-color--clightgray6 {
+  background-color: #dbe3eb;
+}
+
+.color--clightgray7 {
+  color: #dce1e6;
+}
+
+.bg-color--clightgray7 {
+  background-color: #dce1e6;
+}
+
+.color--clightgray8 {
+  color: #aeaeae;
+}
+
+.bg-color--clightgray8 {
+  background-color: #aeaeae;
+}
+
+.color--clightgray9 {
+  color: #f7f7f7;
+}
+
+.bg-color--clightgray9 {
+  background-color: #f7f7f7;
+}
+
+.color--clightgray10 {
+  color: #727579;
+}
+
+.bg-color--clightgray10 {
+  background-color: #727579;
+}
+
+.color--ctabledg1 {
+  color: #adadad;
+}
+
+.bg-color--ctabledg1 {
+  background-color: #adadad;
+}
+
+.color--ctabledg2 {
+  color: #6b6b6b;
+}
+
+.bg-color--ctabledg2 {
+  background-color: #6b6b6b;
+}
+
+.color--ctablemg {
+  color: #f4f4f4;
+}
+
+.bg-color--ctablemg {
+  background-color: #f4f4f4;
+}
+
+.color--ctablebg {
+  color: #fafafa;
+}
+
+.bg-color--ctablebg {
+  background-color: #fafafa;
+}
+
+.color--cbrown {
+  color: #221e1e;
+}
+
+.bg-color--cbrown {
+  background-color: #221e1e;
+}
+
+.color--cbrown2 {
+  color: #262426;
+}
+
+.bg-color--cbrown2 {
+  background-color: #262426;
+}
+
+.color--cbrown3 {
+  color: #9a9898;
+}
+
+.bg-color--cbrown3 {
+  background-color: #9a9898;
+}
+
+body {
+  color: #616365;
+}
+
+h1, .h-page-heading {
+  color: #616365;
+}
+
+h2 {
+  color: #616365;
+}
+
+h3, .h-page-subheading {
+  color: #616365;
+}
+
+h4 {
+  color: #616365;
+}
+
+h5 {
+  color: #616365;
+}
+
+h6 {
+  color: #616365;
+}
+
+h7 {
+  color: #616365;
+}
+
+a {
+  color: #408eaa;
+}
+
+a:hover,
+a:focus,
+a:active {
+  color: #ff5800;
+}
+
+.ten-font {
+  font-size: 10px;
+  line-height: 15px;
+}
+
+.eleven-font {
+  font-size: 11px;
+  line-height: 16px;
+}
+
+.twelve-font {
+  font-size: 12px;
+  line-height: 17px;
+}
+
+.thirteen-font {
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.fourteen-font {
+  font-size: 14px;
+  line-height: 19px;
+}
+
+.fifteen-font {
+  font-size: 15px;
+  line-height: 20px;
+}
+
+.sixteen-font {
+  font-size: 16px;
+  line-height: 21px;
+}
+
+.seventeen-font {
+  font-size: 17px;
+  line-height: 22px;
+}
+
+h7 {
+  font-size: 18px;
+  line-height: 23px;
+}
+
+.eightteen-font {
+  font-size: 18px;
+  line-height: 23px;
+}
+
+.nineteen-font {
+  font-size: 19px;
+  line-height: 24px;
+}
+
+h6 {
+  font-size: 20px;
+  line-height: 25px;
+}
+
+.twenty-font {
+  font-size: 20px;
+  line-height: 25px;
+}
+
+.twentyone-font {
+  font-size: 21px;
+  line-height: 26px;
+}
+
+h5 {
+  font-size: 22px;
+  line-height: 27px;
+}
+
+.twentytwo-font {
+  font-size: 22px;
+  line-height: 27px;
+}
+
+.twentythree-font {
+  font-size: 23px;
+  line-height: 28px;
+}
+
+h4 {
+  font-size: 24px;
+  line-height: 29px;
+}
+
+.twentyfour-font {
+  font-size: 24px;
+  line-height: 29px;
+}
+
+.twentyfive-font {
+  font-size: 25px;
+  line-height: 30px;
+}
+
+.twentysix-font {
+  font-size: 26px;
+  line-height: 31px;
+}
+
+.twentyseven-font {
+  font-size: 27px;
+  line-height: 32px;
+}
+
+h3 {
+  font-size: 28px;
+  line-height: 33px;
+}
+
+.twentyeight-font {
+  font-size: 28px;
+  line-height: 33px;
+}
+
+.twentynine-font {
+  font-size: 29px;
+  line-height: 34px;
+}
+
+.thirty-font {
+  font-size: 30px;
+  line-height: 35px;
+}
+
+.thirtyone-font {
+  font-size: 31px;
+  line-height: 36px;
+}
+
+.thirtytwo-font {
+  font-size: 32px;
+  line-height: 37px;
+}
+
+.thirtythree-font {
+  font-size: 33px;
+  line-height: 38px;
+}
+
+.thirtyfour-font {
+  font-size: 34px;
+  line-height: 39px;
+}
+
+.thirtyfive-font {
+  font-size: 35px;
+  line-height: 40px;
+}
+
+.thirtysix-font {
+  font-size: 36px;
+  line-height: 41px;
+}
+
+.thirtyseven-font {
+  font-size: 37px;
+  line-height: 42px;
+}
+
+.thirtyeight-font {
+  font-size: 38px;
+  line-height: 43px;
+}
+
+.thirtynine-font {
+  font-size: 39px;
+  line-height: 44px;
+}
+
+.fourty-font {
+  font-size: 40px;
+  line-height: 45px;
+}
+
+.fourtyone-font {
+  font-size: 41px;
+  line-height: 46px;
+}
+
+.fourtytwo-font {
+  font-size: 42px;
+  line-height: 47px;
+}
+
+.fourtythree-font {
+  font-size: 43px;
+  line-height: 48px;
+}
+
+.fourtyfour-font {
+  font-size: 44px;
+  line-height: 49px;
+}
+
+.fourtyfive-font {
+  font-size: 45px;
+  line-height: 50px;
+}
+
+.fourtysix-font {
+  font-size: 46px;
+  line-height: 51px;
+}
+
+.fourtyseven-font {
+  font-size: 47px;
+  line-height: 52px;
+}
+
+.fourtyeight-font {
+  font-size: 48px;
+  line-height: 53px;
+}
+
+.fourtynine-font {
+  font-size: 49px;
+  line-height: 54px;
+}
+
+h2 {
+  font-size: 50px;
+  line-height: 55px;
+}
+
+.fifty-font {
+  font-size: 50px;
+  line-height: 55px;
+}
+
+.fiftyone-font {
+  font-size: 51px;
+  line-height: 56px;
+}
+
+h1 {
+  font-size: 52px;
+  line-height: 57px;
+}
+
+.fiftytwo-font {
+  font-size: 52px;
+  line-height: 57px;
+}
+
+.fiftythree-font {
+  font-size: 53px;
+  line-height: 58px;
+}
+
+.fiftyfour-font {
+  font-size: 54px;
+  line-height: 59px;
+}
+
+.fiftyfive-font {
+  font-size: 55px;
+  line-height: 60px;
+}
+
+.fiftysix-font {
+  font-size: 56px;
+  line-height: 61px;
+}
+
+/** Define mixins for web fonts used by this child theme */
+/**
+ * Examples
+ *
+ * @mixin font-roboto($fontsize, $lineheight: $default-lineheight) {
+ *   @include _font_setup('Roboto', $fontsize, $lineheight);
+ *   font-weight: 400;
+ * }
+ *
+ * @mixin font-roboto-medium($fontsize, $lineheight: $default-lineheight) {
+ *   @include _font_setup('Roboto', $fontsize, $lineheight);
+ *   font-weight: 500;
+ * }
+ */
+/* _____ FONTS _____ */
+body {
+  font-family: "HelveticaNeueW01-45Ligh", arial, helvetica, sans-serif;
+  font-size: 18px;
+  line-height: 21.6px;
+  font-size: 1.125rem;
+  line-height: 1.35rem;
+  font-weight: 400;
+  line-height: 145%;
+}
+
+#content.site-content {
+  max-width: 100%;
+  width: 100% !important;
+}
+
+h1, h2, h3, h4, h5, h6, h7 {
+  padding-bottom: 3%;
+}
+@media only screen and (max-width: 767px) {
+  h1 h1, h1 h2, h1 h3, h1 h4, h1 h5, h1 h6, h2 h1, h2 h2, h2 h3, h2 h4, h2 h5, h2 h6, h3 h1, h3 h2, h3 h3, h3 h4, h3 h5, h3 h6, h4 h1, h4 h2, h4 h3, h4 h4, h4 h5, h4 h6, h5 h1, h5 h2, h5 h3, h5 h4, h5 h5, h5 h6, h6 h1, h6 h2, h6 h3, h6 h4, h6 h5, h6 h6, h7 h1, h7 h2, h7 h3, h7 h4, h7 h5, h7 h6 {
+    word-wrap: break-word;
+  }
+}
+
+h1 {
+  font-weight: 300;
+}
+
+h2 {
+  font-weight: 300;
+}
+
+h3 {
+  font-weight: 300;
+}
+
+h4 {
+  font-weight: 300;
+}
+
+h5 {
+  font-weight: 300;
+}
+
+h6 {
+  font-weight: 300;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+h7 {
+  font-weight: 300;
+}
+
+.anchor--link {
+  display: block;
+  position: relative;
+  top: -250px;
+  visibility: hidden;
+}
+
+ol {
+  margin-left: 1.5em;
+}
+ol li {
+  margin-bottom: 2px;
+}
+
+.alignleft {
+  margin-right: 30px;
+  margin-bottom: 30px;
+}
+
+.alignright {
+  margin-bottom: 30px;
+  margin-left: 30px;
+}
+
+img {
+  max-width: 100% !important;
+}
+
+.button-white {
+  background-color: #fff;
+}
+
+.button:focus, .button-orange:focus {
+  color: #fff !important;
+}
+
+.button-skinny {
+  font-size: 16px;
+  line-height: 16px;
+  font-size: 1rem;
+  line-height: 1rem;
+  padding: 0.9em 2.6em;
+  margin: 0 10px;
+}
+
+.countdown-timer {
+  margin: 0 auto;
+  width: 710px;
+}
+
+.countdown-timer .countdown-container {
+  height: 130px;
+}
+
+.countdown-timer .time {
+  border-radius: 5px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+  display: inline-block;
+  text-align: center;
+  margin: 0 10px;
+  position: relative;
+  height: 85px;
+  width: 110px;
+  -webkit-perspective: 479px;
+  -moz-perspective: 479px;
+  -ms-perspective: 479px;
+  -o-perspective: 479px;
+  perspective: 479px;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  -o-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+.countdown-timer .time:first-child {
+  margin-left: 0;
+}
+.countdown-timer .time:last-child {
+  margin-right: 0;
+}
+
+.countdown-timer .count {
+  background: #0f1920;
+  color: #f8f8f8;
+  display: block;
+  font-size: 3.5em;
+  font-weight: bold;
+  line-height: 86px;
+  overflow: hidden;
+  position: absolute;
+  text-align: center;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+  top: 0;
+  width: 100%;
+  -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  -o-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-transform-style: flat;
+  -moz-transform-style: flat;
+  -ms-transform-style: flat;
+  -o-transform-style: flat;
+  transform-style: flat;
+}
+
+.countdown-timer .count.top {
+  border-radius: 5px 5px 0 0;
+  height: 50%;
+  -webkit-transform-origin: 50% 100%;
+  -moz-transform-origin: 50% 100%;
+  -ms-transform-origin: 50% 100%;
+  -o-transform-origin: 50% 100%;
+  transform-origin: 50% 100%;
+}
+
+.countdown-timer .count.bottom {
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+  border-radius: 0 0 5px 5px;
+  line-height: 0;
+  height: 50%;
+  top: 50%;
+  -webkit-transform-origin: 50% 0;
+  -moz-transform-origin: 50% 0;
+  -ms-transform-origin: 50% 0;
+  -o-transform-origin: 50% 0;
+  transform-origin: 50% 0;
+}
+
+.countdown-timer .label {
+  color: #fff;
+  font-size: 12px;
+  margin-top: 5px;
+  display: block;
+  position: absolute;
+  text-transform: uppercase;
+  top: 95px;
+  width: 100%;
+}
+
+/* Animation start */
+.countdown-timer .count.curr.top {
+  -webkit-transform: rotateX(0deg);
+  -moz-transform: rotateX(0deg);
+  -ms-transform: rotateX(0deg);
+  -o-transform: rotateX(0deg);
+  transform: rotateX(0deg);
+  z-index: 3;
+}
+
+.countdown-timer .count.next.bottom {
+  -webkit-transform: rotateX(90deg);
+  -moz-transform: rotateX(90deg);
+  -ms-transform: rotateX(90deg);
+  -o-transform: rotateX(90deg);
+  transform: rotateX(90deg);
+  z-index: 2;
+}
+
+/* Animation end */
+.countdown-timer .flip .count.curr.top {
+  -webkit-transition: all 250ms ease-in-out;
+  -moz-transition: all 250ms ease-in-out;
+  -ms-transition: all 250ms ease-in-out;
+  -o-transition: all 250ms ease-in-out;
+  transition: all 250ms ease-in-out;
+  -webkit-transform: rotateX(-90deg);
+  -moz-transform: rotateX(-90deg);
+  -ms-transform: rotateX(-90deg);
+  -o-transform: rotateX(-90deg);
+  transform: rotateX(-90deg);
+}
+
+.countdown-timer .flip .count.next.bottom {
+  -webkit-transition: all 250ms ease-in-out 250ms;
+  -moz-transition: all 250ms ease-in-out 250ms;
+  -ms-transition: all 250ms ease-in-out 250ms;
+  -o-transition: all 250ms ease-in-out 250ms;
+  transition: all 250ms ease-in-out 250ms;
+  -webkit-transform: rotateX(0deg);
+  -moz-transform: rotateX(0deg);
+  -ms-transform: rotateX(0deg);
+  -o-transform: rotateX(0deg);
+  transform: rotateX(0deg);
+}
+
+@media screen and (max-width: 48em) {
+  .countdown-timer {
+    width: 100%;
+  }
+
+  .countdown-timer .countdown-container {
+    height: 100px;
+  }
+
+  .countdown-timer .time {
+    height: 70px;
+    width: 48px;
+  }
+
+  .countdown-timer .count {
+    font-size: 1.5em;
+    line-height: 70px;
+  }
+
+  .countdown-timer .label {
+    font-size: 0.8em;
+    top: 72px;
+  }
+}
+
+/*# sourceMappingURL=editor-style.css.map */

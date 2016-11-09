@@ -1,0 +1,72 @@
+//@import 'base/__base';
+
+// define component placeholders for component contents (no selector here)
+@include define('media') {
+  %media {
+    display: block;
+    @include _use(cleafix);
+    overflow: hidden;
+    clear: both;
+  }
+
+  %media__img {
+    float: left;
+    margin-right: $base-spacing-unit;
+  }
+
+  %media__img--rev {
+    float: right;
+    margin-left: $base-spacing-unit;
+  }
+
+  %media__body {
+    overflow: hidden;
+
+    //&, & > :last-child {
+    //margin-bottom: 0
+    //}
+  }
+}
+
+// map the placeholders content to some selectors through a mixin
+@mixin media($selector: '.media', $reverse: false, $defaultSkin: true) {
+
+  #{$selector} {
+    @extend %media;
+  }
+
+  @if $reverse {
+    #{$selector}__img {
+      @extend %media__img--rev;
+    }
+  } @else {
+    #{$selector}__img {
+      @extend %media__img;
+    }
+  }
+
+  #{$selector}__body {
+    @extend %media__body;
+  }
+
+
+  @if $defaultSkin != false {
+    @include media-skin-default($selector, $reverse);
+  }
+}
+
+@include define('media-skin-default') {
+
+  //%media-skin-default__item {
+  //  border-bottom: 1px solid transparent;
+  //}
+}
+
+// provide a default skin for the component
+// only visual changes that don't affect the component layout should be in here
+@mixin media-skin-default($selector, $reverse) {
+
+  //#{$selector}_item {
+  //  @extend %media-skin-default__item;
+  //}
+}

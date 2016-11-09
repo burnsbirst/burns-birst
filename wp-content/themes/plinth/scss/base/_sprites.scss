@@ -1,0 +1,63 @@
+$icons-spacing: 2px;
+
+@import "compass/utilities/sprites";
+@import "icons/*.png";
+
+// Basic helper to show an icon sprite
+@mixin show-icon-sprite($name) {
+  @include _use(ir);
+  @include icons-sprite($name);
+  width: icons-sprite-width($name);
+  height: icons-sprite-height($name);
+}
+
+// Makes it easy to add an icon "after" some text, like on a button
+@mixin icon-after($name, $right: 0, $top: 'center') {
+  @if ($name == none) {
+    &:after {
+      display: none;
+    }
+  } @else {
+    position: relative;
+
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      right: $right;
+      @include show-icon-sprite($name);
+      @if ($top == 'center') {
+        top: 50%;
+        margin-top: -(icons-sprite-height($name) / 2);
+      } @else {
+        top: $top;
+        margin-top: 0;
+      }
+    }
+  }
+}
+
+@mixin icon-before($name, $left: 0, $top: 0) {
+  @if ($name == none) {
+    &:after {
+      display: none;
+    }
+  } @else {
+    position: relative;
+
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      left: $left;
+      @include show-icon-sprite($name);
+      @if ($top == 'center') {
+        top: 50%;
+        margin-top: -(icons-sprite-height($name) / 2);
+      } @else {
+        top: $top;
+        margin-top: 0;
+      }
+    }
+  }
+}

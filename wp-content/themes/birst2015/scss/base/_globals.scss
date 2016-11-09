@@ -1,0 +1,105 @@
+
+body {
+	@include font-default-set($default-font, 18px);
+  @extend %const-color-body;
+	line-height: $default-lineheight;
+}
+
+#content.site-content {
+  max-width: 100%;
+  width: 100% !important;
+}
+
+h1, h2, h3, h4, h5, h6, h7 {
+	padding-bottom: $default-heading-padding-bottom;
+
+	@include respond(all-phones) {
+		h1,h2,h3,h4,h5,h6 { word-wrap: break-word;}
+	}
+
+}
+	h1 {
+		@extend %const-color-h1;
+		@extend %fiftytwo-font;
+		font-weight: 300;
+	}
+		h2 {
+			@extend %const-color-h2;
+			@extend %fifty-font;
+			font-weight: 300;
+		}
+			h3 {
+				@extend %const-color-h3;
+				@extend %twentyeight-font;
+				font-weight: 300;
+			}
+				h4 {
+					@extend %const-color-h4;
+					@extend %twentyfour-font;
+					font-weight: 300;
+				}
+					h5 {
+						@extend %const-color-h5;
+						@extend %twentytwo-font;
+						font-weight: 300;
+					}
+						h6 {
+							@extend %const-color-h6;
+							@extend %twenty-font;
+							font-weight: 300;
+							letter-spacing: 2px;
+							text-transform: uppercase; 
+						}
+							h7 {
+								@extend %const-color-h7;
+								@extend %eightteen-font;
+								font-weight: 300;
+							}
+
+a {
+  @extend %const-color-a;
+	&:hover {
+		@extend %const-color-a-hover;
+	}
+}
+
+.anchor--link {
+	  display: block;
+	  position: relative;
+	  top: -250px;
+	  visibility: hidden;
+}
+
+a:hover,
+a:focus,
+a:active {
+  @extend %const-color-a-hover;
+}
+
+ol {
+  margin-left: 1.5em;
+
+  li {
+    margin-bottom: 2px;
+  }
+}
+
+.alignleft {
+  @include scut-margin(n 30px 30px n);
+}
+.alignright {
+  @include scut-margin(n n 30px 30px);
+}
+
+img {
+	max-width: 100% !important;
+}
+
+.navbar-toggle {
+  .icon-bar {
+    @extend %bg-color--corange; 
+	&:hover {
+		@extend %bg-color--corange; 
+	}
+  }
+}

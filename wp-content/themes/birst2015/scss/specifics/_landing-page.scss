@@ -1,0 +1,399 @@
+/* CSS Document */
+
+.mktoForm {
+	
+	padding: 20px 0 0;
+	width: 100% !important;
+
+	input, select {
+		color: #666;
+		border: solid 3px #fcc695 !important;
+		border-radius: 3px;
+		padding: 5px !important;
+		width: 100% !important;
+	}
+
+	input[type="text"] {
+		box-sizing: border-box;
+		line-height: 1.2em;
+		margin: 0;
+	}
+
+	.mktoField {
+		font-size: 1em;
+		float: left;
+		width: 100% !important;
+	}
+
+	.mktoButtonWrap {
+		
+		margin: 0 !important;
+		padding-top: 20px;
+
+	}
+
+	.mktoErrorArrowWrap {
+		top: -7px !important;
+	}
+
+	.mktoErrorMsg {
+		margin-top: 0 !important;
+	}
+
+	.mktoButton {
+			color:#fff;
+			border:1px solid #75ae4c;
+			padding:0.4em 1em;
+			font-size: 21px !important;
+			background-color:#99c47c;
+			// Needs latest Compass, add '@import "compass"' to your scss
+			// Permalink - use to edit and share this gradient:
+			// http://colorzilla.com/gradient-editor/#fc6e41+0,fc8d34+100
+			background-color: #fc6e41; // Old browsers
+			@include filter-gradient(#fc6e41, #fc8d34, vertical); // IE6-9
+			@include background-image(linear-gradient(top, #fc8d34 0%, #fc6e41 100%) !important);
+
+
+			&:hover {
+				border:1px solid #447f19;
+			}
+
+			&:focus {
+				outline:none;
+				border:1px solid #447f19;
+			}
+
+			&:active {
+				background-color:#75ae4c;
+				
+			}
+
+	}
+
+	.mktoOffset {
+		display: none;
+	}
+
+	.mktoButtonRow {
+		padding-top: 20px;
+		width: 100% !important;
+	}
+
+	.mktoGutter {
+		display: none;
+	}
+
+	.mktoFormCol {
+		margin-bottom: 0 !important;
+		width: 100% !important;
+	}
+
+	.mktoFormRow {
+		float: left;
+		width: 100%;
+	}
+
+	.mktoFormRow:nth-child(2) {
+		clear: none;
+		width: 50% !important;
+		padding-right: 1% !important;
+		//@media screen and (max-width: 768px) {
+			//width: 100% !important;
+			//padding-right: 0 !important;
+		//}
+
+	}
+
+	.mktoFormRow:nth-child(3) {
+		clear: none;
+		width: 50% !important;
+		padding-left: 1% !important;
+		//@media screen and (max-width: 768px) {
+			//width: 100% !important;
+			//padding-left: 0 !important;
+		//}
+	}
+
+	.mktoButton {
+		color: #fff;
+		border: 0 !important;
+		padding: 10px 30px !important;
+		width: 100% !important;
+		
+	}
+
+} 
+
+	.mktoFieldWrap {
+		margin-bottom: 0 !important;
+		width: 100% !important;
+	}
+
+.main-content {
+	padding-top: 40px;
+	padding-bottom: 40px;
+}
+	
+.sidebar-form {
+	box-shadow: 5px 5px 5px #CCC;
+	background-size: cover;
+	background-position: 0 0;
+	background-repeat: no-repeat;
+	padding: 20px 40px 40px;
+	position: relative;
+	
+	p {
+		margin: 0;
+		padding: 0;
+	}
+	
+	&:after {
+		left: 0%;
+		top: 20%;
+		border: solid transparent;
+		content: " ";
+		height: 0;
+		width: 0;
+		position: absolute;
+		pointer-events: none;
+		border-color: rgba(255, 255, 255, 0);
+		border-left-color: #ffffff;
+		border-width: 20px;
+		margin-top: -20px;
+	}
+	
+}
+
+.sidebar-content {
+	padding: 10px 0;
+}
+
+.layer--landing-page-content {
+	background-position: left top;
+	background-repeat: no-repeat;
+	position: relative;
+}
+@media screen and (max-width: 768px) {
+   .layer--landing-page-content {
+      background-image: none !important;
+   }
+}
+
+.layer--trustradius-reviews {
+
+	background: #fbfbfb;
+	padding: 20px 0;
+	
+	.tr-review-teaser {
+
+		p {
+			line-height: 1.2em;
+		}
+
+	}
+	
+	.tr-review-actions {
+		padding-bottom: 15px !important;
+	}
+	
+	.trust-radius-footer {
+			background: #fbfbfb;
+			padding: 20px 0;
+	}
+	
+	.tr-header {
+			background: transparent !important;
+			text-align: center;
+			color: #959698 !important;
+			font-family: $medium-font;
+			font-weight: 600;
+			text-transform: uppercase;
+			font-size: 20px !important;
+			height: auto !important;
+			//margin-bottom: 30px !important;
+			padding: 0 0 20px 0 !important;
+			padding-bottom: 0 !important;
+
+			img {
+				height: 20px !important;
+			}
+
+	}
+	
+	.trustradius-reviews {
+		margin: 0 !important;
+		padding: 0 !important;
+		font-size: 14px;
+		color: #666666;
+		background: transparent !important;
+		overflow: hidden;
+		
+		div {
+			margin: 0;
+			padding: 0;
+		}
+		
+		.tr-reviews-list {
+			 position: absolute;
+		}
+		
+		.tr-review-summary {
+			border-bottom: 0 !important;
+			margin-bottom: 0 !important;
+			float: left;
+			margin-right: 3%;
+			padding: 0 0 10px;
+			width: 30%;
+
+			@include respond(all-phones) {
+				height: 194px;
+				width: 100%;
+			}
+
+		}
+		
+		.tr-review-title {
+			color: #434848;
+			font-weight: normal;
+			line-height: 20px;
+			margin: 0 0 6px 0;
+			text-rendering: optimizelegibility;
+		}
+		
+		.tr-review-byline {
+			color: #434848;
+			margin: 0 0 5px;
+			font-weight: normal;
+			line-height: 17px;
+			text-rendering: optimizelegibility;
+			
+			cite {
+				font-style: normal;
+				margin-right: 6px;
+			}
+		}
+		
+		.tr-rating {
+			margin-right: 6px;
+		}
+		
+		.tr-date {
+			margin-right: 6px;
+		}
+		
+		.tr-bottom-navigation {
+			background: transparent !important;
+			text-align: right !important;
+			min-height: 20px;
+			margin: 5px 0 0 0;
+		}
+		
+	}
+	
+	.tr-footer {
+			position: relative;
+			top: -205px;
+	}
+	
+	.tr-header {
+			position: relative;
+			margin-bottom: 10px;
+			z-index: 200;
+	}
+	.tr-top-navigation, .trustradius-reviews .tr-bottom-navigation {
+			background: transparent !important;
+			text-align: right !important;
+	}
+	.tr-top-navigation a, body .tr-bottom-navigation a, .icon-chevron-up, .icon-chevron-down {
+			color: #959698 !important;
+			font-size: 20px !important;
+	}
+	
+	.tr-bottom-navigation a, .icon-chevron-up, .icon-chevron-down {
+			color: #959698 !important;
+			font-size: 20px !important;
+	}
+
+}
+
+.footer-copyright {
+    background: #2c2c2c;
+		font-size: 16px;
+    padding: 20px 0;
+    color: #989898;
+    text-transform: uppercase;
+		
+		@include respond(all-phones) {
+			font-size: 12px;
+		}
+
+}
+
+.col-sm-6 {
+	float: left;
+  width: 50%;
+	@include respond(all-phones) {
+		text-align: center;
+		width: 100%; 
+	}
+}
+
+.privacy {
+    text-align: right;
+		color: #929393;
+		font-size: 14px;
+		font-weight: normal;
+		
+		a {
+			color: #989898;
+		}
+
+		@include respond(all-phones) {
+			text-align: center;
+		}
+
+}
+
+.trusted-companies-heading {
+	font-size: 18px;
+	
+	@include respond(all-phones) {
+		font-size: 28px;
+		line-height: 1;
+	}
+
+}
+
+.inline-logos {
+	display: block;
+	margin: 0 auto;
+	padding: 0;
+	width: 80%;
+	li {
+		float: left;
+		display: inline-block;
+		margin: 0;
+		padding: 0;
+		text-align: center; 
+		width: 20%;
+		@include respond(all-phones) {
+			display: block;
+			margin: 7px 0;
+			width: 100%;
+
+			&:first-child {
+				margin-top: 20px;
+			}
+
+		}
+	}
+}
+
+
+.secondary-background {
+	background-repeat: no-repeat;
+	position: absolute;
+	width: 100%;
+	z-index: -1;
+}
+	

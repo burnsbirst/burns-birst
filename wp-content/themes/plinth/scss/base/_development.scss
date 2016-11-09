@@ -1,0 +1,30 @@
+// Styles that should be used for development to identify issues
+a[href="tbd"] {
+  background: red !important;
+  color: yellow !important;
+  display: inline-block !important;
+}
+
+.responsive-test {
+  @include scut-fixed(0 0 n n);
+  @include border-radius(0 0 0 10px);
+  @include scut-border(1px solid #666, n n y y);
+  // Overrride inline style
+  display: block !important;
+
+  width: 140px;
+  background: #fff;
+  padding: 10px;
+  z-index: 1000;
+}
+
+@each $size in portrait-phones, landscape-phones, all-phones, portrait-tablets, tablets, desktop, document-width, large-screens {
+  .responsive-test--#{$size} {
+    display: none;
+    font-size: 12px;
+
+    @include respond($size) {
+      display: block;
+    }
+  }
+}

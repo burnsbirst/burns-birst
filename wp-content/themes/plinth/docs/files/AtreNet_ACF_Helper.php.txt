@@ -1,0 +1,320 @@
+<?php
+
+require_once dirname(__FILE__) . '/AtreNet_WordPress_Helper.php';
+
+class AtreNet_ACF_Helper extends AtreNet_WordPress_Helper {
+
+  const VERSION = '0.1.0';
+
+  private $current_meta_list = false;
+
+  protected static $bridge = null;
+
+  protected static $instance = null;
+
+  protected function __construct($bridge = null) {
+    // TODO - add check for ACF available
+
+    // Support passing in a bridge for testing
+    if ($bridge === null) {
+      $bridge = AtreNet_ACF_WordPress_Bridge::getInstance();
+    }
+
+    parent::__construct($bridge);
+  }
+
+  /**
+   * Get a list of post_meta values for a post ID.
+   *
+   */
+  public function getMetaList($post_id = false) {
+    $post_id = $this->normalize_post_id($post_id);
+
+    if (!$post_id) {
+      return array();
+    }
+
+    return $this->simplify_post_meta_list( $this->getBridge()->get_post_meta($post_id) );
+  }
+
+  public function updateMetaValue($post_id, $meta_key, $meta_value, $prev_value) {
+    $bridge       = $this->getBridge();
+    $meta_value_s = $bridge->maybe_serialize($meta_value);
+    $prev_value_s = $bridge->maybe_serialize($prev_value);
+
+    $res = false;
+    if ($meta_value_s != $prev_value_s) {
+      $res = $bridge->update_post_meta($post_id, $meta_key, $meta_value, $prev_value);
+    }
+    return $res;
+  }
+
+  /**
+   * Get a list of reference field meta keys.
+   *
+   * Reference field meta keys point at other objects in the database.
+   * These include attachments and posts.
+   *
+   */
+  public function getReferenceFieldMetaKeys($post_id, $meta_list = false) {
+    //die("here");
+    $meta_list = $this->normalize_meta_list($post_id, $meta_list);
+    echo("meta_list: <pre>" . print_r($meta_list, 1) . "</pre>");
+
+    $field_values = $this->getBridge()->get_fields($post_id);
+    $field_objects = $this->getBridge()->get_field_objects($post_id);
+    $key_list = array();
+
+    $this->_set_current_meta_list($meta_list);
+    foreach ($meta_list as $meta_key => $meta_value) {
+      $field_key = $this->get_field_key_for_meta_key($meta_key);
+      //echo("field_key: $field_key <br>\n");
+      if ( $this->_is_reference_meta_key($meta_key, $field_key, $post_id) ) {
+        //echo("&nbsp;&nbsp;&nbsp;- reference key<br>\n");
+        $key_list[$meta_key] = $this->getBridge()->maybe_unserialize($meta_list[$meta_key]);
+      }
+    }
+
+    $this->_clear_current_meta_list();
+
+    return $this->_clean_reference_field_meta_keys($key_list);
+  }
+
+  protected function get_field_key_for_meta_key($meta_key) {
+    $field_key = false;
+    $field_key_meta_key = '_' . $meta_key;
+    if (
+      $this->current_meta_list
+      && array_key_exists($field_key_meta_key, $this->current_meta_list)
+    ) {
+      $field_key = $this->current_meta_list[$field_key_meta_key];
+    }
+    return $field_key;
+  }
+
+  private function _is_reference_meta_key($meta_key, $field_key, $post_id) {
+    // Fail fast
+    if (!$field_key) {
+      return false;
+    }
+    //echo("_is_reference_meta_key($meta_key, $field_key, $post_id)<br>\n");
+
+    $ret = false;
+    $options = array(
+      'load_value' => false,
+      'format_value' => false,
+    );
+    //echo("field_key: $field_key<br>\n");
+    $field = $this->_get_field_object($field_key, $post_id, $options);
+    //echo_with("field: " . print_r($field, 1));
+    $type = $field['type'];
+    //echo("&nbsp;&nbsp;&nbsp;type: $type<br>\n");
+    if ( $this->_is_reference_type($type) ) {
+      $ret = true;
+    } else if ( $this->_is_reference_sub_field_key($meta_key, $post_id, $options) ) {
+      $ret = true;
+    }
+
+    return $ret;
+  }
+
+  private function _is_reference_sub_field_key($meta_key, $post_id, $options = array()) {
+    $ret = false;
+
+    $field_bits = preg_split('/(_\d+_)/', $meta_key, null, PREG_SPLIT_DELIM_CAPTURE);
+    //echo_with("field_bits: " . print_r($field_bits, 1));
+    if ( is_array($field_bits) && count($field_bits) > 0 ) {
+      $field_name = array_shift($field_bits);
+      $field = $this->_get_field_object($field_name, $post_id, $options);
+      if ( is_array($field) ) {
+        $children = false;
+        $layout_lookup = array();
+
+        if ( array_key_exists('sub_fields', $field) ) {
+          $children = $field['sub_fields'];
+        } else if ( array_key_exists('layouts', $field) ) {
+          $children = $field['layouts'];
+          $layout_lookup = $this->_get_layout_lookup($field_name);
+        }
+
+        if ($children) {
+          $ret = $this->_is_reference_sub_field($children, $field_bits, $layout_lookup);
+        }
+      }
+    }
+
+    return $ret;
+  }
+
+  private function _get_layout_lookup($field_name) {
+    if ( array_key_exists($field_name, $this->current_meta_list) ) {
+      return $this->current_meta_list[$field_name];
+    }
+
+    return array();
+  }
+
+
+  private function _is_reference_sub_field($sub_fields, $field_bits, $layout_lookup = array()) {
+    $ret = false;
+    if ( count($field_bits) > 0 ) {
+      $field_name = array_shift($field_bits);
+      $field_index = false;
+      $matches = array();
+      if ( preg_match('/^_(\d+)_$/', $field_name, $matches) ) {
+        $field_index = $matches[1];
+        if ( is_array($layout_lookup) && array_key_exists($field_index, $layout_lookup) ) {
+          $field_name = $layout_lookup[$field_index];
+        } else {
+          $field_name = array_shift($field_bits);
+        }
+      }
+
+      foreach ($sub_fields as $sub_field) {
+        if ($sub_field['name'] == $field_name) {
+          if ( array_key_exists('type', $sub_field) && $this->_is_reference_type($sub_field['type']) ) {
+            $ret = true;
+          } else {
+            $children = array();
+            $layout_lookup = array();
+
+            if ( array_key_exists('sub_fields', $sub_field) ) {
+              $children = $sub_field['sub_fields'];
+            } else if ( array_key_exists('layouts', $sub_field) ) {
+              $children = $sub_field['layouts'];
+              $layout_lookup = $this->_get_layout_lookup($field_name);
+            }
+            $ret = $this->_is_reference_sub_field($children, $field_bits, $layout_lookup);
+          }
+          break;
+        }
+      }
+    }
+    return $ret;
+  }
+
+  private function _clean_reference_field_meta_keys($reference_field_meta_keys) {
+    if ( !is_array($reference_field_meta_keys) ) {
+      return $this->_normalize_reference_field_key($reference_field_meta_keys);
+    }
+
+    foreach ($reference_field_meta_keys as $key => $value) {
+      $normalized_key = $this->_normalize_reference_field_key($key);
+      if ($key != $normalized_key) {
+        $reference_field_meta_keys[$normalized_key] = $value;
+        unset($reference_field_meta_keys[$key]);
+      }
+    }
+    return $reference_field_meta_keys;
+  }
+
+  private function _normalize_reference_field_key($key) {
+    if ( '_reference' === substr($key, -10) ) {
+      $key = substr_replace($key, '', -10);
+    }
+    return $key;
+  }
+
+
+  private function _is_reference_type($type) {
+    $ret = false;
+
+    switch ($type) {
+      case "image":
+      case "file":
+      case "relationship":
+      case "page_link":
+      case "post_object":
+        $ret = true;
+    }
+
+    //echo("type: $type && ret: " . ($ret ? 'true' : 'false') . "<br />\n");
+
+    return $ret;
+  }
+
+  // Memoization wrapper for get_field_object from ACF
+  private function _get_field_object($field_key, $post_id, $options = array()) {
+    static $field_object_cache;
+
+    $post_type = $this->get_post_type($post_id);
+    $cache_key = $field_key . '-' . $post_type;
+    //echo("cache_key: $cache_key<br>\n");
+    //echo("post_id: $post_id<br>\n");
+    if ( !isset($field_object_cache[$cache_key]) ) {
+      //echo("cache miss<br>\n");
+      // Cache miss
+      $foo = $this->getBridge()->get_field_object($field_key, $post_id, $options);
+      //echo_with('foo: ' . print_r($foo, 1));
+      $field_object_cache[$cache_key] = $foo;
+    } else {
+      // Cache hit
+    }
+    //echo_with('cache: ' . print_r($field_object_cache[$cache_key], 1));
+
+    return $field_object_cache[$cache_key];
+  }
+
+
+  // Prevent having to pass around the meta_list as a function param
+  private function _set_current_meta_list($meta_list) {
+    $this->current_meta_list = $meta_list;
+  }
+  private function _clear_current_meta_list() {
+    $this->current_meta_list = false;
+  }
+
+  /**
+   * Get a list of relationship field meta keys.
+   *
+   * Relationship field meta keys point at other posts in the database.
+   * This is similar to reference, but doesn't include attachments.
+   */
+  public function getRelationshipFieldMetaKeys($post_id, $meta_list = false) {
+    $meta_list = $this->normalize_meta_list($post_id, $meta_list);
+  }
+
+  protected function normalize_meta_list($post_id, $meta_list) {
+    if (!$meta_list) {
+      return $this->getMetaList($post_id);
+    }
+
+    return $meta_list;
+  }
+
+  protected function simplify_post_meta_list($post_meta_list) {
+    $simple_list = array();
+
+    foreach ($post_meta_list as $key => $value) {
+      if ( is_array($value) && count($value) === 1 ) {
+        $simple_list[$key] = $value[0];
+      } else {
+        $simple_list[$key] = $value;
+      }
+    }
+
+    return $simple_list;
+  }
+}
+
+// Use a bridge class rather than calling WP functions directly to make
+// testing easier.
+class AtreNet_ACF_WordPress_Bridge extends AtreNet_WordPress_Bridge {
+
+  protected static $instance = null;
+
+  public function get_fields($post_id) {
+    return get_fields($post_id);
+  }
+
+  public function get_field_objects($post_id) {
+    return get_field_objects($post_id);
+  }
+
+  public function get_field_object($field_key, $post_id, $options = array()) {
+    return get_field_object($field_key, $post_id, $options);
+  }
+
+}
+
+

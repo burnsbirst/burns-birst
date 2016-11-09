@@ -1,0 +1,19 @@
+.page-contact {
+	.layer--columns {
+		.columns {
+		@include respond("max-width: 768px") {
+			width:100% !important;
+		}
+		}
+	}
+	#content-wrapper .content .gform_wrapper {
+	.top_label {
+		input.medium {
+			width:75%;
+			@include respond("max-width: 768px") {
+				width:100%;
+			}
+		}
+	}
+	}
+}

@@ -1,0 +1,66 @@
+$base_font: arial, helvetica, sans-serif;
+$monospace_font: Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", "Courier 10 Pitch", Courier, monospace;
+$lineheight-multiplier: 1.2;
+$default-lineheight: -1;
+@function fix-lineheight($fontsize, $lineheight) {
+  @if ($fontsize == 'auto') {
+    @return $lineheight;
+  }
+  @if ($lineheight == $default-lineheight) {
+    @return $fontsize * $lineheight-multiplier;
+  }
+  @return $lineheight;
+}
+
+@mixin font-monospace($fontsize, $lineheight: $default-lineheight) {
+  @include _font_setup($monospace_font, $fontsize, $lineheight);
+}
+
+@mixin font-regular($fontsize, $lineheight: $default-lineheight) {
+  @include _font_setup('base', $fontsize, $lineheight);
+}
+
+@mixin font-regular-bold($fontsize, $lineheight: $default-lineheight) {
+  @include _font_setup('base', $fontsize, $lineheight);
+  font-weight: bold;
+}
+@mixin font-bold($fontsize, $lineheight: $default-lineheight) {
+  @include font-regular-bold($fontsize, $lineheight);
+}
+
+@mixin font-regular-italic($fontsize, $lineheight: $default-lineheight) {
+  @include _font_setup('base', $fontsize, $lineheight);
+  font-style: italic;
+}
+@mixin font-italic($fontsize, $lineheight: $default-lineheight) {
+  @include font-regular-italic($fontsize, $lineheight);
+}
+
+@mixin font-base($fontsize, $lineheight: $default-lineheight) {
+  $lineheight: fix-lineheight($fontsize, $lineheight);
+  @include _font_setup('base', $fontsize, $lineheight);
+}
+
+
+@mixin _font_setup($font, $fontsize, $lineheight: $default-lineheight, $font-fallback: $base_font) {
+  $lineheight: fix-lineheight($fontsize, $lineheight);
+  @include _font_family($font, $font-fallback);
+  @if ($fontsize != 'auto') {
+    @include font-size($fontsize, $lineheight);
+  }
+}
+
+@mixin _font_family($font, $font-fallback) {
+  @if ($font == 'base') {
+    font-family: $base_font;
+  } @else {
+    font-family: $font, $font-fallback;
+  }
+}
+
+@mixin font-size($fontsize, $lineheight: $fontsize * $lineheight-multiplier, $base:$base-font-size) {
+  font-size: $fontsize;
+  line-height: $lineheight;
+  font-size: #{$fontsize/$base}rem;
+  line-height: #{$lineheight/$base}rem;
+}

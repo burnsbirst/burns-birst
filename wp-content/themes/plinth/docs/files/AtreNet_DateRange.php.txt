@@ -1,0 +1,45 @@
+<?php
+
+/**
+ * Helper class for handling date ranges.
+ */
+class AtreNet_DateRange {
+
+  private $d1;
+  private $d2;
+
+  function __construct($d1, $d2 = '') {
+    $this->d1 = strtotime($d1);
+    if ( isset($d2) && $d2 !== '' ) {
+      $this->d2 = strtotime($d2);
+    } else {
+      $this->d2 = false;
+    }
+  }
+
+  function get_date_part($matches) {
+    $date = $matches[2] == '1' ? $this->d1 : $this->d2;
+    return date($matches[1], $date);
+  }
+
+  function determine_format_type() {
+    $format_type = 'same_day_format';
+    if (!$this->d2) {
+      // default
+    }
+    else if ( date('Y', $this->d1) != date('Y', $this->d2) ) {
+      $format_type = 'diff_year_format';
+    }
+    else if ( date('m', $this->d1) != date('m', $this->d2) ) {
+      $format_type = 'same_year_format';
+    }
+    else if ( date('d', $this->d1) != date('d', $this->d2) ) {
+      $format_type = 'same_month_format';
+    }
+
+    return $format_type;
+  }
+
+}
+
+

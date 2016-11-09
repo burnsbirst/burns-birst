@@ -1,0 +1,24 @@
+This is a parent theme for building new WordPress sites. It encapsulates a lot 
+of best practices and code to make it easier to setup and build new WordPress sites.
+
+Getting Started
+--------------------------------------------------------------------------------
+1. Copy the child_theme directory out into themes directory and rename it to [client]_[year]
+2. Rename classes/Child_Theme.php to classes/[client]_[year].php
+3. Open classes/[client]_[year].php and edit the class name and any instances of "client-year".
+4. Open scss/style.scss and edit the "Theme Name" value in the front area to be "Client Year".
+5. Open functions.php and edit the class require and instance retrieval to use the new theme name from step 3.
+
+
+Required Plugins
+--------------------------------------------------------------------------------
+Please get required plugins from:
+  https://svn.atre.net/engineering/wordpress/plugins
+
+In order for this theme to work correctly, you must install:
+  * advanced-custom-fields
+  * acf-options-page
+  * wordpress-importer
+  * atrenet-post-types
+
+In addition, you must enable the Site Options post type and load the acf-site-options-initial-setup.xml to setup Site Options.

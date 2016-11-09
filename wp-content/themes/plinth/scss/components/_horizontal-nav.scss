@@ -1,0 +1,37 @@
+//@import 'base/__base';
+
+// define component placeholders for component contents (no selector here)
+@include define('horizontal-nav') {
+  %horizontal-nav {
+    .menu {
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+    }
+    .menu-item {
+      position: relative;
+      @extend %inlineBlock;
+      float: left;
+      margin: 0 1em 0 0;
+      padding: 0 1em 0 0;
+
+      > a {
+        display: block;
+      }
+
+      &:last-child {
+        margin-right: 0;
+        padding-right: 0;
+      }
+    }
+  }
+}
+
+// map the placeholders content to some selectors through a mixin
+@mixin horizontal-nav($selector: '.horizontal-nav', $hover: ':hover', $defaultSkin: true) {
+
+  #{$selector} {
+    @extend %horizontal-nav;
+  }
+}
+

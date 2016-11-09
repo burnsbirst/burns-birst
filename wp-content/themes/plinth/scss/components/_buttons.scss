@@ -1,0 +1,35 @@
+//@import 'base/__base';
+
+// define component placeholders for component contents (no selector here)
+@include define('button') {
+  %button {
+    @extend %inlineBlock;
+  }
+
+  %buttonAltState {
+  }
+}
+
+// map the placeholders content to some selectors through a mixin
+//@mixin button($selector: '.button', $hover: ':hover', $param2: '', $defaultSkin: true) {
+@mixin button($selector: '.button', $hover: ':hover', $size: '', $icon: '', $defaultSkin: true) {
+
+  #{$selector} {
+    @extend %button;
+  }
+
+  @if $hover == ':hover' {
+    #{$selector}:hover {
+      @extend %buttonAltState !optional;
+    }
+  } @else {
+    #{$selector}_#{$hover} {
+      @extend %buttonAltState !optional;
+    }
+  }
+
+  @if $defaultSkin != false {
+    @include button-skin-default($selector, $hover, $size, $icon);
+  }
+
+}

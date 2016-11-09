@@ -1,0 +1,40 @@
+// define component placeholders for component skin (no selector here)
+@include define('horizontal-nav-skin_cta-buttons') {
+  %horizontal-nav-skin_cta-buttons {
+  }
+
+  %horizontal-nav-skin_cta-buttons__menu__item {
+    text-transform: uppercase;
+  }
+
+  %horizontal-nav-skin_cta-buttons__menu__item__link {
+    background-color: #015ca2;
+    @include background(linear-gradient(rgba(1, 92, 162, 0), rgba(1, 92, 162, 1)));
+    color: #fff;
+  }
+}
+
+// provide a default skin for the component
+// only visual changes that don't affect the component layout should be in here
+@mixin horizontal-nav-skin_cta-buttons($selector: '.horizontal-nav-cta-buttons', $hover: '.hover') {
+  #{$selector} {
+    @extend %horizontal-nav-skin_cta-buttons;
+
+    .menu {
+      .menu-item {
+        @extend %horizontal-nav-skin_cta-buttons__menu__item;
+      }
+    }
+  }
+
+  @if $hover == ':hover' {
+    #{$selector}:hover {
+      //@extend %horizontal-nav-skin_cta-buttons;
+    }
+  } @else {
+    #{$selector}_#{$hover} {
+      //@extend %buttonAltState-skin-default;
+    }
+  }
+}
+
